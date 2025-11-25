@@ -95,6 +95,7 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=7.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.IdentityModel.Tokens.7.7.1\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -171,6 +172,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
+    <Compile Include="CommanderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommanderForm.Designer.cs">
+      <DependentUpon>CommanderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardClient.Designer.cs">
+      <DependentUpon>DashboardClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardPharmacien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardPharmacien.Designer.cs">
+      <DependentUpon>DashboardPharmacien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -178,6 +198,20 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fournisseur.cs" />
+    <Compile Include="GestionCommandesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionCommandesForm.Designer.cs">
+      <DependentUpon>GestionCommandesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionMedicamentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionMedicamentsForm.Designer.cs">
+      <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LignePanier.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +228,21 @@
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <EmbeddedResource Include="CommanderForm.resx">
+      <DependentUpon>CommanderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardClient.resx">
+      <DependentUpon>DashboardClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardPharmacien.resx">
+      <DependentUpon>DashboardPharmacien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionCommandesForm.resx">
+      <DependentUpon>GestionCommandesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionMedicamentsForm.resx">
+      <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

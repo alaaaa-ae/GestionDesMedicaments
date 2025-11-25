@@ -9,6 +9,7 @@ namespace GestionDesMedicaments.Classes
 {
     internal class Medicament
     {
+      
         // Propriétés correspondant aux colonnes de la table Medicament
         public int Id { get; set; }
         public string Nom { get; set; }
@@ -18,6 +19,7 @@ namespace GestionDesMedicaments.Classes
         public int Stock { get; set; }
         public int SeuilAlerte { get; set; }
         public int IdFournisseur { get; set; }
+
 
         // Constructeur par défaut
         public Medicament() { }
@@ -187,7 +189,7 @@ namespace GestionDesMedicaments.Classes
                     {
                         Id = (int)reader["id_medicament"],
                         Nom = reader["nom"].ToString(),
-                        Description = reader["description"].ToString(),
+                        Description = reader["description"]?.ToString(),
                         PrixAchat = (decimal)reader["prix_achat"],
                         PrixVente = (decimal)reader["prix_vente"],
                         Stock = (int)reader["stock"],
@@ -195,9 +197,15 @@ namespace GestionDesMedicaments.Classes
                         IdFournisseur = (int)reader["id_fournisseur"]
                     });
                 }
+
+                reader.Close();
             }
+
             return medicaments;
         }
+
+       
+
 
         // 🔹 Vérifier si un médicament est en alerte de stock
         public bool EstEnAlerteStock()

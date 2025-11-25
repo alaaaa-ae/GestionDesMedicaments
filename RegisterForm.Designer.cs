@@ -1,92 +1,138 @@
-﻿using Guna.UI2.WinForms;
-using System.Windows.Forms;
-
-namespace GestionDesMedicaments
+﻿namespace GestionDesMedicaments
 {
     partial class RegisterForm
     {
-        private Guna2TextBox txtEmail;
-        private Guna2TextBox txtPassword;
-        private Guna2TextBox txtConfirm;
-        private Guna2Button btnRegister;
-        private Guna2HtmlLabel lblTitle;
-        private Guna2HtmlLabel lblLogin;
-        private Guna2ShadowForm guna2ShadowForm1;
+        private System.ComponentModel.IContainer components = null;
+
+        private Guna.UI2.WinForms.Guna2TextBox txtUsername;
+        private Guna.UI2.WinForms.Guna2TextBox txtPassword;
+        private Guna.UI2.WinForms.Guna2TextBox txtConfirm;
+        private Guna.UI2.WinForms.Guna2TextBox txtEmailClient;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbRole;
+        private Guna.UI2.WinForms.Guna2Button btnRegister;
+        private System.Windows.Forms.Label lblLogin;
 
         private void InitializeComponent()
         {
-            this.txtEmail = new Guna2TextBox();
-            this.txtPassword = new Guna2TextBox();
-            this.txtConfirm = new Guna2TextBox();
-            this.btnRegister = new Guna2Button();
-            this.lblTitle = new Guna2HtmlLabel();
-            this.lblLogin = new Guna2HtmlLabel();
-            this.guna2ShadowForm1 = new Guna2ShadowForm();
-
+            this.txtUsername = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtConfirm = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtEmailClient = new Guna.UI2.WinForms.Guna2TextBox();
+            this.cmbRole = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.btnRegister = new Guna.UI2.WinForms.Guna2Button();
+            this.lblLogin = new System.Windows.Forms.Label();
             this.SuspendLayout();
-
-            // Form
-            this.Text = "Inscription";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(380, 460);
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-
-            // Title
-            this.lblTitle.Text = "Créer un compte";
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(255, 128, 0);
-            this.lblTitle.Location = new System.Drawing.Point(80, 40);
-
-            // Email
-            this.txtEmail.PlaceholderText = "Email";
-            this.txtEmail.BorderRadius = 8;
-            this.txtEmail.Location = new System.Drawing.Point(60, 120);
-            this.txtEmail.Size = new System.Drawing.Size(260, 40);
-
-            // Password
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtUsername.DefaultText = "";
+            this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtUsername.Location = new System.Drawing.Point(50, 30);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.PlaceholderText = "Nom d\'utilisateur";
+            this.txtUsername.SelectedText = "";
+            this.txtUsername.Size = new System.Drawing.Size(250, 36);
+            this.txtUsername.TabIndex = 0;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtPassword.DefaultText = "";
+            this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtPassword.Location = new System.Drawing.Point(50, 122);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.PlaceholderText = "Mot de passe";
-            this.txtPassword.PasswordChar = '●';
-            this.txtPassword.BorderRadius = 8;
-            this.txtPassword.Location = new System.Drawing.Point(60, 180);
-            this.txtPassword.Size = new System.Drawing.Size(260, 40);
-
-            // Confirm Password
-            this.txtConfirm.PlaceholderText = "Confirmer le mot de passe";
-            this.txtConfirm.PasswordChar = '●';
-            this.txtConfirm.BorderRadius = 8;
-            this.txtConfirm.Location = new System.Drawing.Point(60, 240);
-            this.txtConfirm.Size = new System.Drawing.Size(260, 40);
-
-            // Register Button
-            this.btnRegister.Text = "S'inscrire";
-            this.btnRegister.FillColor = System.Drawing.Color.FromArgb(255, 128, 0);
-            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.txtPassword.SelectedText = "";
+            this.txtPassword.Size = new System.Drawing.Size(250, 36);
+            this.txtPassword.TabIndex = 1;
+            // 
+            // txtConfirm
+            // 
+            this.txtConfirm.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConfirm.DefaultText = "";
+            this.txtConfirm.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtConfirm.Location = new System.Drawing.Point(50, 168);
+            this.txtConfirm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtConfirm.Name = "txtConfirm";
+            this.txtConfirm.PasswordChar = '*';
+            this.txtConfirm.PlaceholderText = "Confirmer mot de passe";
+            this.txtConfirm.SelectedText = "";
+            this.txtConfirm.Size = new System.Drawing.Size(250, 36);
+            this.txtConfirm.TabIndex = 2;
+            // 
+            // txtEmailClient
+            // 
+            this.txtEmailClient.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtEmailClient.DefaultText = "";
+            this.txtEmailClient.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEmailClient.Location = new System.Drawing.Point(53, 76);
+            this.txtEmailClient.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtEmailClient.Name = "txtEmailClient";
+            this.txtEmailClient.PlaceholderText = "Email";
+            this.txtEmailClient.SelectedText = "";
+            this.txtEmailClient.Size = new System.Drawing.Size(250, 36);
+            this.txtEmailClient.TabIndex = 6;
+            // 
+            // cmbRole
+            // 
+            this.cmbRole.BackColor = System.Drawing.Color.Transparent;
+            this.cmbRole.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRole.FocusedColor = System.Drawing.Color.Empty;
+            this.cmbRole.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbRole.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cmbRole.ItemHeight = 30;
+            this.cmbRole.Location = new System.Drawing.Point(50, 212);
+            this.cmbRole.Name = "cmbRole";
+            this.cmbRole.Size = new System.Drawing.Size(250, 36);
+            this.cmbRole.TabIndex = 3;
+            this.cmbRole.SelectedIndexChanged += new System.EventHandler(this.cmbRole_SelectedIndexChanged);
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.FillColor = System.Drawing.Color.Orange;
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnRegister.ForeColor = System.Drawing.Color.White;
-            this.btnRegister.BorderRadius = 8;
-            this.btnRegister.Location = new System.Drawing.Point(60, 310);
-            this.btnRegister.Size = new System.Drawing.Size(260, 45);
+            this.btnRegister.Location = new System.Drawing.Point(50, 315);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(250, 45);
+            this.btnRegister.TabIndex = 9;
+            this.btnRegister.Text = "S\'inscrire";
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-
-            // Login link
-            this.lblLogin.Text = "Déjà un compte ? Se connecter";
-            this.lblLogin.ForeColor = System.Drawing.Color.Gray;
-            this.lblLogin.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblLogin.Location = new System.Drawing.Point(110, 380);
+            // 
+            // lblLogin
+            // 
+            this.lblLogin.AutoSize = true;
+            this.lblLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblLogin.ForeColor = System.Drawing.Color.Blue;
+            this.lblLogin.Location = new System.Drawing.Point(50, 380);
+            this.lblLogin.Name = "lblLogin";
+            this.lblLogin.Size = new System.Drawing.Size(253, 20);
+            this.lblLogin.TabIndex = 10;
+            this.lblLogin.Text = "Déjà un compte ? Connectez-vous";
             this.lblLogin.Click += new System.EventHandler(this.lblLogin_Click);
-
-            // Add controls
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.txtEmail);
+            // 
+            // RegisterForm
+            // 
+            this.ClientSize = new System.Drawing.Size(684, 600);
+            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtConfirm);
+            this.Controls.Add(this.cmbRole);
+            this.Controls.Add(this.txtEmailClient);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.lblLogin);
-
-            this.guna2ShadowForm1.SetShadowForm(this);
-
+            this.Name = "RegisterForm";
+            this.Text = "Inscription";
+            this.Load += new System.EventHandler(this.RegisterForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }
