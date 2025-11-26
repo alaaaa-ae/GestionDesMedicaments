@@ -389,5 +389,11 @@ namespace GestionDesMedicaments
                 btnAjouterPanier_Click(sender, e);
             }
         }
+
+        private void DataGridViewPanier_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        
+
+        }
     }
 }

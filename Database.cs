@@ -11,7 +11,7 @@ namespace GestionDesMedicaments.Classes
     internal class Database
     {
         private static string connectionString =
-            "Data Source=Alae\\GI2;Initial Catalog=PharmacieDB;Initial Catalog=PharmacieDB;Integrated Security=True;";
+            "Data Source=localhost;Initial Catalog=PharmacieDB;Initial Catalog=PharmacieDB;Integrated Security=True;";
 
         public static SqlConnection GetConnection()
         {

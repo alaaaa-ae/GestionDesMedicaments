@@ -45,11 +45,10 @@ namespace GestionDesMedicaments
             this.txtRecherche = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnRechercher = new Guna.UI2.WinForms.Guna2Button();
             this.btnRafraichir = new System.Windows.Forms.Button();
-
+            this.lblWelcome = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMedicaments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPanier)).BeginInit();
             this.SuspendLayout();
-
             // 
             // DataGridViewMedicaments
             // 
@@ -63,7 +62,6 @@ namespace GestionDesMedicaments
             this.DataGridViewMedicaments.Size = new System.Drawing.Size(720, 200);
             this.DataGridViewMedicaments.TabIndex = 6;
             this.DataGridViewMedicaments.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMedicaments_CellDoubleClick);
-
             // 
             // DataGridViewPanier
             // 
@@ -76,7 +74,7 @@ namespace GestionDesMedicaments
             this.DataGridViewPanier.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DataGridViewPanier.Size = new System.Drawing.Size(720, 150);
             this.DataGridViewPanier.TabIndex = 7;
-
+            this.DataGridViewPanier.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewPanier_CellContentClick);
             // 
             // btnAjouterPanier
             // 
@@ -90,7 +88,6 @@ namespace GestionDesMedicaments
             this.btnAjouterPanier.TabIndex = 8;
             this.btnAjouterPanier.Text = "➕ Ajouter au panier";
             this.btnAjouterPanier.Click += new System.EventHandler(this.btnAjouterPanier_Click);
-
             // 
             // btnValiderCommande
             // 
@@ -104,7 +101,6 @@ namespace GestionDesMedicaments
             this.btnValiderCommande.TabIndex = 11;
             this.btnValiderCommande.Text = "✅ Valider ma commande";
             this.btnValiderCommande.Click += new System.EventHandler(this.btnValiderCommande_Click);
-
             // 
             // btnSupprimerPanier
             // 
@@ -118,7 +114,6 @@ namespace GestionDesMedicaments
             this.btnSupprimerPanier.TabIndex = 9;
             this.btnSupprimerPanier.Text = "❌ Supprimer";
             this.btnSupprimerPanier.Click += new System.EventHandler(this.btnSupprimerPanier_Click);
-
             // 
             // btnViderPanier
             // 
@@ -132,7 +127,6 @@ namespace GestionDesMedicaments
             this.btnViderPanier.TabIndex = 10;
             this.btnViderPanier.Text = "🗑️ Vider panier";
             this.btnViderPanier.Click += new System.EventHandler(this.btnViderPanier_Click);
-
             // 
             // lblMedicaments
             // 
@@ -141,10 +135,9 @@ namespace GestionDesMedicaments
             this.lblMedicaments.ForeColor = System.Drawing.Color.Orange;
             this.lblMedicaments.Location = new System.Drawing.Point(30, 120);
             this.lblMedicaments.Name = "lblMedicaments";
-            this.lblMedicaments.Size = new System.Drawing.Size(272, 32);
+            this.lblMedicaments.Size = new System.Drawing.Size(182, 21);
             this.lblMedicaments.TabIndex = 3;
             this.lblMedicaments.Text = "Liste des Médicaments";
-
             // 
             // lblPanier
             // 
@@ -153,10 +146,9 @@ namespace GestionDesMedicaments
             this.lblPanier.ForeColor = System.Drawing.Color.Orange;
             this.lblPanier.Location = new System.Drawing.Point(30, 420);
             this.lblPanier.Name = "lblPanier";
-            this.lblPanier.Size = new System.Drawing.Size(154, 32);
+            this.lblPanier.Size = new System.Drawing.Size(104, 21);
             this.lblPanier.TabIndex = 4;
             this.lblPanier.Text = "Votre Panier";
-
             // 
             // lblTitre
             // 
@@ -165,10 +157,9 @@ namespace GestionDesMedicaments
             this.lblTitre.ForeColor = System.Drawing.Color.Orange;
             this.lblTitre.Location = new System.Drawing.Point(280, 20);
             this.lblTitre.Name = "lblTitre";
-            this.lblTitre.Size = new System.Drawing.Size(527, 45);
+            this.lblTitre.Size = new System.Drawing.Size(365, 30);
             this.lblTitre.TabIndex = 0;
             this.lblTitre.Text = "🛒 Commander des Médicaments";
-
             // 
             // lblTotal
             // 
@@ -177,20 +168,9 @@ namespace GestionDesMedicaments
             this.lblTotal.ForeColor = System.Drawing.Color.Orange;
             this.lblTotal.Location = new System.Drawing.Point(500, 610);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(154, 32);
+            this.lblTotal.Size = new System.Drawing.Size(100, 21);
             this.lblTotal.TabIndex = 5;
             this.lblTotal.Text = "Total: 0,00 €";
-
-            // lblWelcome
-            this.lblWelcome = new System.Windows.Forms.Label();
-            this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblWelcome.ForeColor = System.Drawing.Color.Orange;
-            this.lblWelcome.Location = new System.Drawing.Point(30, 20);
-            this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(0, 32);
-            this.lblWelcome.TabIndex = 13;
-
             // 
             // txtRecherche
             // 
@@ -206,7 +186,6 @@ namespace GestionDesMedicaments
             this.txtRecherche.Size = new System.Drawing.Size(250, 36);
             this.txtRecherche.TabIndex = 1;
             this.txtRecherche.TextChanged += new System.EventHandler(this.txtRecherche_TextChanged);
-
             // 
             // btnRechercher
             // 
@@ -220,7 +199,6 @@ namespace GestionDesMedicaments
             this.btnRechercher.TabIndex = 2;
             this.btnRechercher.Text = "🔎 Rechercher";
             this.btnRechercher.Click += new System.EventHandler(this.btnRechercher_Click);
-
             // 
             // btnRafraichir
             // 
@@ -235,7 +213,16 @@ namespace GestionDesMedicaments
             this.btnRafraichir.Text = "🔄 Rafraîchir";
             this.btnRafraichir.UseVisualStyleBackColor = false;
             this.btnRafraichir.Click += new System.EventHandler(this.btnRafraichir_Click);
-
+            // 
+            // lblWelcome
+            // 
+            this.lblWelcome.AutoSize = true;
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblWelcome.ForeColor = System.Drawing.Color.Orange;
+            this.lblWelcome.Location = new System.Drawing.Point(30, 20);
+            this.lblWelcome.Name = "lblWelcome";
+            this.lblWelcome.Size = new System.Drawing.Size(0, 21);
+            this.lblWelcome.TabIndex = 13;
             // 
             // DashboardClient
             // 
@@ -262,6 +249,7 @@ namespace GestionDesMedicaments
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPanier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

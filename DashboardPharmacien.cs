@@ -195,10 +195,12 @@ namespace GestionDesMedicaments
 
         private void btnGestionClients_Click(object sender, EventArgs e)
         {
-            // Ouvrir formulaire gestion clients
-            MessageBox.Show("Ouvrir gestion clients", "Information",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var gestionClients = new GestionClientsForm();
+            gestionClients.Owner = this;   // rend le dashboard propriétaire pour un retour facile
+            gestionClients.Show();         // affiche la fenêtre de gestion clients
+            this.Hide();                   // cache le dashboard (facultatif, mais habituel)
         }
+
 
         private void btnRafraichir_Click(object sender, EventArgs e)
         {
@@ -236,5 +238,12 @@ namespace GestionDesMedicaments
         {
 
         }
+        private void btnDeconnexion_Click(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            login.Show();
+            this.Close(); // ferme le dashboard
+        }
+
     }
 }

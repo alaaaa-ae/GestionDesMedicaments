@@ -6,6 +6,8 @@ namespace GestionDesMedicaments
 {
     partial class DashboardPharmacien
     {
+        private Button btnDeconnexion;
+
         private System.ComponentModel.IContainer components = null;
         private Label lblTitre;
         private Panel panelStats;
@@ -278,8 +280,25 @@ namespace GestionDesMedicaments
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockBas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCommandes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPopulaires)).EndInit();
+            // 
+            // btnDeconnexion
+            // 
+            this.btnDeconnexion = new System.Windows.Forms.Button();
+            this.btnDeconnexion.Location = new System.Drawing.Point(650, 20); // position en haut à droite
+            this.btnDeconnexion.Name = "btnDeconnexion";
+            this.btnDeconnexion.Size = new System.Drawing.Size(120, 32);
+            this.btnDeconnexion.TabIndex = 12;
+            this.btnDeconnexion.Text = "🔒 Déconnexion";
+            this.btnDeconnexion.BackColor = Color.DarkRed;
+            this.btnDeconnexion.ForeColor = Color.White;
+            this.btnDeconnexion.FlatStyle = FlatStyle.Flat;
+            this.btnDeconnexion.FlatAppearance.BorderSize = 0;
+            this.btnDeconnexion.Click += new System.EventHandler(this.btnDeconnexion_Click);
+            this.Controls.Add(this.btnDeconnexion);
+
             this.ResumeLayout(false);
 
         }
+
     }
 }
