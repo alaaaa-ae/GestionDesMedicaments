@@ -5,23 +5,31 @@ using System.Windows.Forms;
 
 namespace GestionDesMedicaments
 {
-    partial class DashboardClient : Form
+    partial class DashboardClient
     {
+        private Guna.UI2.WinForms.Guna2Button btnDeconnexion;
+
+        internal System.Windows.Forms.DataGridView DataGridViewCommandes;
+        internal System.Windows.Forms.DataGridView DataGridViewCommandeDetails;
+        internal Guna.UI2.WinForms.Guna2Button btnVoirCommandes;
+        internal Guna.UI2.WinForms.Guna2Button btnModifierCommande;
+        internal Guna.UI2.WinForms.Guna2Button btnAnnulerCommande;
+
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.DataGridView DataGridViewMedicaments;
-        private System.Windows.Forms.DataGridView DataGridViewPanier;
-        private Guna2Button btnAjouterPanier;
-        private Guna2Button btnValiderCommande;
-        private Guna2Button btnSupprimerPanier;
-        private Guna2Button btnViderPanier;
-        private Label lblMedicaments;
-        private Label lblPanier;
-        private Label lblTitre;
-        private Label lblTotal;
-        private Guna2TextBox txtRecherche;
-        private Guna2Button btnRechercher;
-        private Button btnRafraichir;
-        private System.Windows.Forms.Label lblWelcome;
+        internal System.Windows.Forms.DataGridView DataGridViewMedicaments;
+        internal System.Windows.Forms.DataGridView DataGridViewPanier;
+        internal Guna2Button btnAjouterPanier;
+        internal Guna2Button btnValiderCommande;
+        internal Guna2Button btnSupprimerPanier;
+        internal Guna2Button btnViderPanier;
+        internal Label lblMedicaments;
+        internal Label lblPanier;
+        internal Label lblTitre;
+        internal Label lblTotal;
+        internal Guna2TextBox txtRecherche;
+        internal Guna2Button btnRechercher;
+        internal Button btnRafraichir;
+        internal System.Windows.Forms.Label lblWelcome;
 
         protected override void Dispose(bool disposing)
         {
@@ -32,6 +40,11 @@ namespace GestionDesMedicaments
 
         private void InitializeComponent()
         {
+            this.DataGridViewCommandes = new System.Windows.Forms.DataGridView();
+            this.DataGridViewCommandeDetails = new System.Windows.Forms.DataGridView();
+            this.btnVoirCommandes = new Guna.UI2.WinForms.Guna2Button();
+            this.btnModifierCommande = new Guna.UI2.WinForms.Guna2Button();
+            this.btnAnnulerCommande = new Guna.UI2.WinForms.Guna2Button();
             this.DataGridViewMedicaments = new System.Windows.Forms.DataGridView();
             this.DataGridViewPanier = new System.Windows.Forms.DataGridView();
             this.btnAjouterPanier = new Guna.UI2.WinForms.Guna2Button();
@@ -46,9 +59,76 @@ namespace GestionDesMedicaments
             this.btnRechercher = new Guna.UI2.WinForms.Guna2Button();
             this.btnRafraichir = new System.Windows.Forms.Button();
             this.lblWelcome = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandeDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMedicaments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPanier)).BeginInit();
             this.SuspendLayout();
+
+
+            // 
+            // DataGridViewCommandes
+            // 
+            this.DataGridViewCommandes.AllowUserToAddRows = false;
+            this.DataGridViewCommandes.ColumnHeadersHeight = 34;
+            this.DataGridViewCommandes.Location = new System.Drawing.Point(770, 70);
+            this.DataGridViewCommandes.Name = "DataGridViewCommandes";
+            this.DataGridViewCommandes.ReadOnly = true;
+            this.DataGridViewCommandes.RowHeadersVisible = false;
+            this.DataGridViewCommandes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridViewCommandes.Size = new System.Drawing.Size(500, 240);
+            this.DataGridViewCommandes.TabIndex = 0;
+            this.DataGridViewCommandes.SelectionChanged += new System.EventHandler(this.DataGridViewCommandes_SelectionChanged);
+            // 
+            // DataGridViewCommandeDetails
+            // 
+            this.DataGridViewCommandeDetails.AllowUserToAddRows = false;
+            this.DataGridViewCommandeDetails.ColumnHeadersHeight = 34;
+            this.DataGridViewCommandeDetails.Location = new System.Drawing.Point(770, 340);
+            this.DataGridViewCommandeDetails.Name = "DataGridViewCommandeDetails";
+            this.DataGridViewCommandeDetails.RowHeadersVisible = false;
+            this.DataGridViewCommandeDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridViewCommandeDetails.Size = new System.Drawing.Size(500, 260);
+            this.DataGridViewCommandeDetails.TabIndex = 1;
+            // 
+            // btnVoirCommandes
+            // 
+            this.btnVoirCommandes.BorderRadius = 8;
+            this.btnVoirCommandes.FillColor = System.Drawing.Color.SteelBlue;
+            this.btnVoirCommandes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnVoirCommandes.ForeColor = System.Drawing.Color.White;
+            this.btnVoirCommandes.Location = new System.Drawing.Point(770, 18);
+            this.btnVoirCommandes.Name = "btnVoirCommandes";
+            this.btnVoirCommandes.Size = new System.Drawing.Size(160, 36);
+            this.btnVoirCommandes.TabIndex = 2;
+            this.btnVoirCommandes.Text = "📦 Mes commandes";
+            this.btnVoirCommandes.Click += new System.EventHandler(this.btnVoirCommandes_Click);
+            // 
+            // btnModifierCommande
+            // 
+            this.btnModifierCommande.BorderRadius = 8;
+            this.btnModifierCommande.FillColor = System.Drawing.Color.Orange;
+            this.btnModifierCommande.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnModifierCommande.ForeColor = System.Drawing.Color.White;
+            this.btnModifierCommande.Location = new System.Drawing.Point(950, 18);
+            this.btnModifierCommande.Name = "btnModifierCommande";
+            this.btnModifierCommande.Size = new System.Drawing.Size(160, 36);
+            this.btnModifierCommande.TabIndex = 3;
+            this.btnModifierCommande.Text = "✏️ Modifier la commande";
+            this.btnModifierCommande.Click += new System.EventHandler(this.btnModifierCommande_Click);
+            // 
+            // btnAnnulerCommande
+            // 
+            this.btnAnnulerCommande.BorderRadius = 8;
+            this.btnAnnulerCommande.FillColor = System.Drawing.Color.Red;
+            this.btnAnnulerCommande.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAnnulerCommande.ForeColor = System.Drawing.Color.White;
+            this.btnAnnulerCommande.Location = new System.Drawing.Point(1130, 18);
+            this.btnAnnulerCommande.Name = "btnAnnulerCommande";
+            this.btnAnnulerCommande.Size = new System.Drawing.Size(140, 36);
+            this.btnAnnulerCommande.TabIndex = 4;
+            this.btnAnnulerCommande.Text = "❌ Annuler commande";
+            this.btnAnnulerCommande.Click += new System.EventHandler(this.btnAnnulerCommande_Click);
             // 
             // DataGridViewMedicaments
             // 
@@ -213,6 +293,19 @@ namespace GestionDesMedicaments
             this.btnRafraichir.Text = "🔄 Rafraîchir";
             this.btnRafraichir.UseVisualStyleBackColor = false;
             this.btnRafraichir.Click += new System.EventHandler(this.btnRafraichir_Click);
+
+            this.btnDeconnexion = new Guna.UI2.WinForms.Guna2Button();
+            this.btnDeconnexion.BorderRadius = 8;
+            this.btnDeconnexion.FillColor = System.Drawing.Color.Gray;
+            this.btnDeconnexion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnDeconnexion.ForeColor = System.Drawing.Color.White;
+            this.btnDeconnexion.Location = new System.Drawing.Point(650, 20); // Ajuste selon ton layout
+            this.btnDeconnexion.Name = "btnDeconnexion";
+            this.btnDeconnexion.Size = new System.Drawing.Size(120, 36);
+            this.btnDeconnexion.TabIndex = 14;
+            this.btnDeconnexion.Text = "🚪 Déconnexion";
+            this.btnDeconnexion.Click += new System.EventHandler(this.btnDeconnexion_Click);
+            this.Controls.Add(this.btnDeconnexion);
             // 
             // lblWelcome
             // 
@@ -226,7 +319,12 @@ namespace GestionDesMedicaments
             // 
             // DashboardClient
             // 
-            this.ClientSize = new System.Drawing.Size(800, 680);
+            this.ClientSize = new System.Drawing.Size(927, 680);
+            this.Controls.Add(this.DataGridViewCommandes);
+            this.Controls.Add(this.DataGridViewCommandeDetails);
+            this.Controls.Add(this.btnVoirCommandes);
+            this.Controls.Add(this.btnModifierCommande);
+            this.Controls.Add(this.btnAnnulerCommande);
             this.Controls.Add(this.btnRafraichir);
             this.Controls.Add(this.lblTitre);
             this.Controls.Add(this.txtRecherche);
@@ -245,6 +343,8 @@ namespace GestionDesMedicaments
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Commander des Médicaments";
             this.Load += new System.EventHandler(this.CommanderForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandeDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMedicaments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPanier)).EndInit();
             this.ResumeLayout(false);

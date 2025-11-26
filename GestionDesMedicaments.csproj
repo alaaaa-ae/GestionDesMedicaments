@@ -217,6 +217,7 @@
     <Compile Include="GestionMedicamentsForm.Designer.cs">
       <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LigneCommandeView.cs" />
     <Compile Include="LignePanier.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -234,6 +235,7 @@
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="Session.cs" />
     <EmbeddedResource Include="CommanderForm.resx">
       <DependentUpon>CommanderForm.cs</DependentUpon>
     </EmbeddedResource>
