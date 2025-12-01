@@ -44,12 +44,12 @@ namespace GestionDesMedicaments
             this.lblTo = new System.Windows.Forms.Label();
             this.lblClient = new System.Windows.Forms.Label();
             this.lblFiltres = new System.Windows.Forms.Label();
-
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDetails)).BeginInit();
             this.SuspendLayout();
-
+            // 
             // DataGridViewCommandes
+            // 
             this.DataGridViewCommandes.AllowUserToAddRows = false;
             this.DataGridViewCommandes.AllowUserToDeleteRows = false;
             this.DataGridViewCommandes.Location = new System.Drawing.Point(20, 80);
@@ -59,88 +59,132 @@ namespace GestionDesMedicaments
             this.DataGridViewCommandes.TabIndex = 0;
             this.DataGridViewCommandes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCommandes_CellValueChanged);
             this.DataGridViewCommandes.SelectionChanged += new System.EventHandler(this.DataGridViewCommandes_SelectionChanged);
-
+            // 
             // DataGridViewDetails
+            // 
             this.DataGridViewDetails.AllowUserToAddRows = false;
             this.DataGridViewDetails.AllowUserToDeleteRows = false;
-            this.DataGridViewDetails.Location = new System.Drawing.Point(20, 360);
+            this.DataGridViewDetails.Location = new System.Drawing.Point(20, 393);
             this.DataGridViewDetails.Name = "DataGridViewDetails";
             this.DataGridViewDetails.Size = new System.Drawing.Size(760, 180);
             this.DataGridViewDetails.TabIndex = 1;
-
-            // Buttons and filters
-            this.lblFiltres.AutoSize = true;
-            this.lblFiltres.Location = new System.Drawing.Point(20, 18);
-            this.lblFiltres.Name = "lblFiltres";
-            this.lblFiltres.Text = "Filtres / Recherche :";
-
-            this.lblFrom.AutoSize = true;
-            this.lblFrom.Location = new System.Drawing.Point(20, 40);
-            this.lblFrom.Name = "lblFrom";
-            this.lblFrom.Text = "De";
-
-            this.dtpFrom.Location = new System.Drawing.Point(50, 36);
-            this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Format = DateTimePickerFormat.Short;
-            this.dtpFrom.Width = 110;
-
-            this.lblTo.AutoSize = true;
-            this.lblTo.Location = new System.Drawing.Point(170, 40);
-            this.lblTo.Name = "lblTo";
-            this.lblTo.Text = "À";
-
-            this.dtpTo.Location = new System.Drawing.Point(190, 36);
-            this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Format = DateTimePickerFormat.Short;
-            this.dtpTo.Width = 110;
-
-            this.lblClient.AutoSize = true;
-            this.lblClient.Location = new System.Drawing.Point(310, 40);
-            this.lblClient.Name = "lblClient";
-            this.lblClient.Text = "Client";
-
-            this.txtClient.Location = new System.Drawing.Point(350, 36);
-            this.txtClient.Name = "txtClient";
-            this.txtClient.Width = 200;
-
-            this.btnRechercher.Location = new System.Drawing.Point(570, 33);
-            this.btnRechercher.Name = "btnRechercher";
-            this.btnRechercher.Size = new System.Drawing.Size(80, 26);
-            this.btnRechercher.Text = "Rechercher";
-            this.btnRechercher.Click += new System.EventHandler(this.btnRechercher_Click);
-
+            // 
+            // btnNouveau
+            // 
             this.btnNouveau.Location = new System.Drawing.Point(660, 33);
             this.btnNouveau.Name = "btnNouveau";
             this.btnNouveau.Size = new System.Drawing.Size(60, 26);
+            this.btnNouveau.TabIndex = 8;
             this.btnNouveau.Text = "Nouveau";
             this.btnNouveau.Click += new System.EventHandler(this.btnNouveau_Click);
-
+            // 
+            // btnModifier
+            // 
             this.btnModifier.Location = new System.Drawing.Point(730, 33);
             this.btnModifier.Name = "btnModifier";
             this.btnModifier.Size = new System.Drawing.Size(50, 26);
+            this.btnModifier.TabIndex = 9;
             this.btnModifier.Text = "Editer";
             this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
-
+            // 
+            // btnSupprimer
+            // 
             this.btnSupprimer.Location = new System.Drawing.Point(730, 350);
             this.btnSupprimer.Name = "btnSupprimer";
             this.btnSupprimer.Size = new System.Drawing.Size(50, 26);
+            this.btnSupprimer.TabIndex = 10;
             this.btnSupprimer.Text = "Suppr";
             this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
-
+            // 
+            // btnImprimer
+            // 
             this.btnImprimer.Location = new System.Drawing.Point(660, 350);
             this.btnImprimer.Name = "btnImprimer";
             this.btnImprimer.Size = new System.Drawing.Size(60, 26);
+            this.btnImprimer.TabIndex = 11;
             this.btnImprimer.Text = "Imprimer";
             this.btnImprimer.Click += new System.EventHandler(this.btnImprimer_Click);
-
+            // 
+            // btnStats
+            // 
             this.btnStats.Location = new System.Drawing.Point(580, 350);
             this.btnStats.Name = "btnStats";
             this.btnStats.Size = new System.Drawing.Size(70, 26);
+            this.btnStats.TabIndex = 12;
             this.btnStats.Text = "Statistiques";
             this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
-
+            // 
+            // btnRechercher
+            // 
+            this.btnRechercher.Location = new System.Drawing.Point(570, 33);
+            this.btnRechercher.Name = "btnRechercher";
+            this.btnRechercher.Size = new System.Drawing.Size(80, 26);
+            this.btnRechercher.TabIndex = 7;
+            this.btnRechercher.Text = "Rechercher";
+            this.btnRechercher.Click += new System.EventHandler(this.btnRechercher_Click);
+            // 
+            // dtpFrom
+            // 
+            this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFrom.Location = new System.Drawing.Point(50, 36);
+            this.dtpFrom.Name = "dtpFrom";
+            this.dtpFrom.Size = new System.Drawing.Size(110, 20);
+            this.dtpFrom.TabIndex = 2;
+            // 
+            // dtpTo
+            // 
+            this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpTo.Location = new System.Drawing.Point(190, 36);
+            this.dtpTo.Name = "dtpTo";
+            this.dtpTo.Size = new System.Drawing.Size(110, 20);
+            this.dtpTo.TabIndex = 4;
+            // 
+            // txtClient
+            // 
+            this.txtClient.Location = new System.Drawing.Point(350, 36);
+            this.txtClient.Name = "txtClient";
+            this.txtClient.Size = new System.Drawing.Size(200, 20);
+            this.txtClient.TabIndex = 6;
+            // 
+            // lblFrom
+            // 
+            this.lblFrom.AutoSize = true;
+            this.lblFrom.Location = new System.Drawing.Point(20, 40);
+            this.lblFrom.Name = "lblFrom";
+            this.lblFrom.Size = new System.Drawing.Size(21, 13);
+            this.lblFrom.TabIndex = 1;
+            this.lblFrom.Text = "De";
+            // 
+            // lblTo
+            // 
+            this.lblTo.AutoSize = true;
+            this.lblTo.Location = new System.Drawing.Point(170, 40);
+            this.lblTo.Name = "lblTo";
+            this.lblTo.Size = new System.Drawing.Size(14, 13);
+            this.lblTo.TabIndex = 3;
+            this.lblTo.Text = "À";
+            // 
+            // lblClient
+            // 
+            this.lblClient.AutoSize = true;
+            this.lblClient.Location = new System.Drawing.Point(310, 40);
+            this.lblClient.Name = "lblClient";
+            this.lblClient.Size = new System.Drawing.Size(33, 13);
+            this.lblClient.TabIndex = 5;
+            this.lblClient.Text = "Client";
+            // 
+            // lblFiltres
+            // 
+            this.lblFiltres.AutoSize = true;
+            this.lblFiltres.Location = new System.Drawing.Point(20, 18);
+            this.lblFiltres.Name = "lblFiltres";
+            this.lblFiltres.Size = new System.Drawing.Size(104, 13);
+            this.lblFiltres.TabIndex = 0;
+            this.lblFiltres.Text = "Filtres / Recherche :";
+            // 
             // GestionCommandesForm
-            this.ClientSize = new System.Drawing.Size(800, 560);
+            // 
+            this.ClientSize = new System.Drawing.Size(800, 595);
             this.Controls.Add(this.lblFiltres);
             this.Controls.Add(this.lblFrom);
             this.Controls.Add(this.dtpFrom);
@@ -160,11 +204,11 @@ namespace GestionDesMedicaments
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion des commandes";
             this.Load += new System.EventHandler(this.GestionCommandesForm_Load);
-
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommandes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDetails)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

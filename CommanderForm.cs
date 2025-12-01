@@ -306,7 +306,7 @@ namespace GestionDesMedicaments
             using (SqlConnection connection = Database.GetConnection())
             {
                 connection.Open();
-                string query = @"INSERT INTO Commande (id_client, date_commande, statut) 
+                string query = @"INSERT INTO Commande (id_utilisateur, date_commande, statut) 
                                OUTPUT INSERTED.id_commande 
                                VALUES (@ClientId, GETDATE(), 'Confirmée')";
 
@@ -481,7 +481,7 @@ namespace GestionDesMedicaments
     }
 
     // Classes auxiliaires
-    
+
     public class MedicamentAvecQuantite
     {
         public int Id { get; set; }
