@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using GestionDesMedicaments.Classes;
 
-namespace GestionDesMedicaments.Classes
+namespace GestionDesMedicaments
 {
     internal class Medicament
     {

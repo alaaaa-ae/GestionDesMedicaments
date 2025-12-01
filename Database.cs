@@ -8,15 +8,16 @@ using System.Data.SqlClient;
 
 namespace GestionDesMedicaments.Classes
 {
-    internal class Database
+    public class Database
     {
         private static string connectionString =
-            "Data Source=localhost;Initial Catalog=PharmacieDB;Initial Catalog=PharmacieDB;Integrated Security=True;";
+            "Data Source=localhost;Initial Catalog=PharmacieDB;Integrated Security=True;";
 
         public static SqlConnection GetConnection()
         {
             return new SqlConnection(connectionString);
         }
     }
+
 }
 

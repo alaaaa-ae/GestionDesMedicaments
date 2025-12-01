@@ -4,8 +4,10 @@ public class LigneCommandeView : INotifyPropertyChanged
 {
     private int _quantite;
 
+    // id_medicament est nécessaire pour enregistrer la ligne de commande en DB
     public int id_medicament { get; set; }
-    public string Nom { get; set; }
+    public string Nom { get; set; } // Nom du médicament
+    public decimal PrixUnitaire { get; set; } // Prix unitaire du médicament
 
     public int Quantite
     {
@@ -16,14 +18,12 @@ public class LigneCommandeView : INotifyPropertyChanged
             {
                 _quantite = value;
                 OnPropertyChanged(nameof(Quantite));
-                OnPropertyChanged(nameof(Total)); // Total change aussi
+                OnPropertyChanged(nameof(Total)); // Total change aussi si la quantité change
             }
         }
     }
 
-    public decimal PrixUnitaire { get; set; }
-
-    public decimal Total => Quantite * PrixUnitaire;
+    public decimal Total => Quantite * PrixUnitaire; // Propriété calculée
 
     // Événement nécessaire pour INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;

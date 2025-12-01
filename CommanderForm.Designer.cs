@@ -15,7 +15,7 @@ namespace GestionDesMedicaments
         private System.Windows.Forms.Label lblPanier;
         private System.Windows.Forms.Label lblTitre;
         private System.Windows.Forms.Label lblTotal;
-        private Guna2TextBox txtRecherche; 
+        private Guna2TextBox txtRecherche;
         private System.Windows.Forms.Button btnRechercher;
 
         protected override void Dispose(bool disposing)
