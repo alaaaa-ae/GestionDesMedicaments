@@ -1,10 +1,11 @@
 ﻿using GestionDesMedicaments.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
-
 
 namespace GestionDesMedicaments
 {
@@ -13,14 +14,14 @@ namespace GestionDesMedicaments
         private List<Medicament> medicamentsDisponibles = new List<Medicament>();
         private List<LignePanier> panier = new List<LignePanier>();
         private string clientNom;
+        private int clientId; // ✅ Ajout de l'ID client
 
-        public DashboardClient(string username)
+        public DashboardClient(string username, int idClient)
         {
             InitializeComponent();
             clientNom = username;
+            clientId = idClient; // ✅ Stockage de l'ID client
             lblWelcome.Text = $"Bienvenue, {username} 👋";
-
-
         }
 
         // ============================
@@ -47,7 +48,7 @@ namespace GestionDesMedicaments
         private void txtRecherche_TextChanged(object sender, EventArgs e)
         {
             string recherche = txtRecherche.Text.Trim().ToLower();
-            
+
             if (string.IsNullOrEmpty(recherche))
             {
                 ChargerMedicaments();
@@ -117,7 +118,8 @@ namespace GestionDesMedicaments
             DataGridViewMedicaments.AutoGenerateColumns = false;
             DataGridViewMedicaments.Columns.Clear();
 
-            var columnsMedicaments = new[]
+            // ✅ CORRECTION : Utiliser DataGridViewColumn[] explicitement
+            DataGridViewColumn[] columnsMedicaments = new DataGridViewColumn[]
             {
                 new DataGridViewTextBoxColumn {
                     Name = "Id",
@@ -169,7 +171,8 @@ namespace GestionDesMedicaments
             DataGridViewPanier.AutoGenerateColumns = false;
             DataGridViewPanier.Columns.Clear();
 
-            var columnsPanier = new[]
+            // ✅ CORRECTION : Utiliser DataGridViewColumn[] explicitement
+            DataGridViewColumn[] columnsPanier = new DataGridViewColumn[]
             {
                 new DataGridViewTextBoxColumn {
                     Name = "MedicamentId",
@@ -177,7 +180,7 @@ namespace GestionDesMedicaments
                     HeaderText = "ID",
                     Width = 50,
                     ReadOnly = true,
-                    Visible = false // Caché mais nécessaire pour les données
+                    Visible = false
                 },
                 new DataGridViewTextBoxColumn {
                     Name = "NomMedicament",
@@ -237,7 +240,7 @@ namespace GestionDesMedicaments
             string input = Microsoft.VisualBasic.Interaction.InputBox(
                 $"Quantité souhaitée pour {medicament.Nom} :", "Quantité", "1", -1, -1);
 
-            if (string.IsNullOrEmpty(input)) return; // Annulation
+            if (string.IsNullOrEmpty(input)) return;
 
             if (!int.TryParse(input, out int quantite) || quantite <= 0)
             {
@@ -247,7 +250,7 @@ namespace GestionDesMedicaments
 
             if (quantite > medicament.Stock)
             {
-                MessageBox.Show($"Stock insuffisant. Disponible : {medicament.Stock}", "Erreur", 
+                MessageBox.Show($"Stock insuffisant. Disponible : {medicament.Stock}", "Erreur",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -319,7 +322,7 @@ namespace GestionDesMedicaments
         }
 
         // ============================
-        // ✅ Valider la commande
+        // ✅ Valider la commande (CORRIGÉE)
         // ============================
         private void btnValiderCommande_Click(object sender, EventArgs e)
         {
@@ -344,10 +347,10 @@ namespace GestionDesMedicaments
 
             try
             {
-                // Ici vous pouvez ajouter la logique de sauvegarde en base
-                // Exemple : CreerCommandeEnBase(panier);
-                
-                MessageBox.Show("Commande validée avec succès !", "Succès",
+                // ✅ CORRECTION : Appel de la méthode de sauvegarde
+                int idCommande = CreerCommandeEnBase(panier);
+
+                MessageBox.Show($"Commande #{idCommande} validée avec succès !", "Succès",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 panier.Clear();
@@ -358,6 +361,69 @@ namespace GestionDesMedicaments
             {
                 MessageBox.Show($"Erreur lors de la validation : {ex.Message}", "Erreur",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ============================
+        // 💾 NOUVELLE MÉTHODE : Sauvegarde en base
+        // ============================
+        private int CreerCommandeEnBase(List<LignePanier> panier)
+        {
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                conn.Open();
+
+                using (SqlTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Créer la commande
+                        string queryCommande = @"
+                            INSERT INTO Commande (id_client, date_commande, statut) 
+                            OUTPUT INSERTED.id_commande
+                            VALUES (@id_client, GETDATE(), 'En attente')";
+
+                        SqlCommand cmdCommande = new SqlCommand(queryCommande, conn, transaction);
+                        cmdCommande.Parameters.AddWithValue("@id_client", clientId); // ✅ Utilisation de clientId
+
+                        int idCommande = (int)cmdCommande.ExecuteScalar();
+
+                        // 2. Ajouter les lignes de commande
+                        string queryLigne = @"
+                            INSERT INTO LigneCommande (id_commande, id_medicament, quantite, prix_unitaire)
+                            VALUES (@id_commande, @id_medicament, @quantite, @prix_unitaire)";
+
+                        foreach (var item in panier)
+                        {
+                            SqlCommand cmdLigne = new SqlCommand(queryLigne, conn, transaction);
+                            cmdLigne.Parameters.AddWithValue("@id_commande", idCommande);
+                            cmdLigne.Parameters.AddWithValue("@id_medicament", item.MedicamentId);
+                            cmdLigne.Parameters.AddWithValue("@quantite", item.Quantite);
+                            cmdLigne.Parameters.AddWithValue("@prix_unitaire", item.PrixUnitaire);
+
+                            cmdLigne.ExecuteNonQuery();
+
+                            // 3. Mettre à jour le stock
+                            string updateStock = @"
+                                UPDATE Medicament 
+                                SET stock = stock - @quantite 
+                                WHERE id_medicament = @id_medicament";
+
+                            SqlCommand cmdStock = new SqlCommand(updateStock, conn, transaction);
+                            cmdStock.Parameters.AddWithValue("@quantite", item.Quantite);
+                            cmdStock.Parameters.AddWithValue("@id_medicament", item.MedicamentId);
+                            cmdStock.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        return idCommande;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception($"Erreur lors de la création de la commande : {ex.Message}");
+                    }
+                }
             }
         }
 
