@@ -11,11 +11,30 @@ namespace GestionDesMedicaments
 {
     public partial class DashboardPharmacien : Form
     {
+        private string commandeUserColumn = "id_utilisateur";
+
         public DashboardPharmacien()
         {
             InitializeComponent();
+            InitialiserColonnes();
             ChargerDonnees();
             AppliquerThemeOrange();
+        }
+
+        private void InitialiserColonnes()
+        {
+            try
+            {
+                using (var conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    commandeUserColumn = Database.GetExistingColumn(conn, "Commande", "id_utilisateur", "id_client");
+                }
+            }
+            catch
+            {
+                commandeUserColumn = "id_utilisateur";
+            }
         }
 
         private void ChargerDonnees()
@@ -60,7 +79,7 @@ namespace GestionDesMedicaments
                     lblAlertesStock.Text = stockBas.ToString();
 
                     // Clients du mois
-                    string queryClients = @"SELECT COUNT(DISTINCT id_client) 
+                    string queryClients = $@"SELECT COUNT(DISTINCT {commandeUserColumn}) 
                                           FROM Commande 
                                           WHERE MONTH(date_commande) = MONTH(GETDATE()) 
                                           AND YEAR(date_commande) = YEAR(GETDATE())";
@@ -108,10 +127,10 @@ namespace GestionDesMedicaments
                 using (SqlConnection conn = Database.GetConnection())
                 {
                     conn.Open();
-                    string query = @"SELECT TOP 10 c.id_commande, cl.nom + ' ' + cl.prenom as Client, 
+                    string query = $@"SELECT TOP 10 c.id_commande, u.nom + ' ' + u.prenom as Client, 
                                    c.date_commande, c.statut, f.total
                                    FROM Commande c
-                                   INNER JOIN Client cl ON c.id_client = cl.id_client
+                                   INNER JOIN Utilisateur u ON c.{commandeUserColumn} = u.id_utilisateur
                                    LEFT JOIN Facture f ON c.id_commande = f.id_commande
                                    ORDER BY c.date_commande DESC";
 

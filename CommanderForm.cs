@@ -14,6 +14,8 @@ namespace GestionDesMedicaments
         private List<Medicament> medicamentsDisponibles;
         private List<LignePanier> panier;
         private int clientId;
+        private string commandeUserColumn = "id_utilisateur";
+        private string factureUserColumn = "id_utilisateur";
 
         public CommanderForm(int clientId)
         {
@@ -23,6 +25,7 @@ namespace GestionDesMedicaments
             panier = new List<LignePanier>();
             ChargerMedicaments();
             ConfigurerDataGridViews();
+            InitialiserColonnes();
         }
 
         private void ConfigurerDataGridViews()
@@ -301,12 +304,30 @@ namespace GestionDesMedicaments
             }
         }
 
+        private void InitialiserColonnes()
+        {
+            try
+            {
+                using (var conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    commandeUserColumn = Database.GetExistingColumn(conn, "Commande", "id_utilisateur", "id_client");
+                    factureUserColumn = Database.GetExistingColumn(conn, "Facture", "id_utilisateur", "id_client");
+                }
+            }
+            catch
+            {
+                commandeUserColumn = "id_utilisateur";
+                factureUserColumn = "id_utilisateur";
+            }
+        }
+
         private int CreerCommande()
         {
             using (SqlConnection connection = Database.GetConnection())
             {
                 connection.Open();
-                string query = @"INSERT INTO Commande (id_utilisateur, date_commande, statut) 
+                string query = $@"INSERT INTO Commande ({commandeUserColumn}, date_commande, statut) 
                                OUTPUT INSERTED.id_commande 
                                VALUES (@ClientId, GETDATE(), 'Confirmée')";
 
@@ -365,7 +386,7 @@ namespace GestionDesMedicaments
             using (SqlConnection connection = Database.GetConnection())
             {
                 connection.Open();
-                string query = @"INSERT INTO Facture (id_client, id_commande, date_facture, total, statut) 
+                string query = $@"INSERT INTO Facture ({factureUserColumn}, id_commande, date_facture, total, statut) 
                                VALUES (@ClientId, @CommandeId, GETDATE(), @Total, 'Impayée')";
 
                 SqlCommand command = new SqlCommand(query, connection);
