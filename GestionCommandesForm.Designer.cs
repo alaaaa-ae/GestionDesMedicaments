@@ -58,56 +58,67 @@ namespace GestionDesMedicaments
             this.SuspendLayout();
 
             // Panel Header
-            this.panelHeader.BackColor = Color.FromArgb(52, 73, 94);
+            this.panelHeader.BackColor = Color.FromArgb(255, 140, 0);
             this.panelHeader.Dock = DockStyle.Top;
-            this.panelHeader.Height = 50;
-            this.panelHeader.Controls.Add(this.btnRetour);
+            this.panelHeader.Height = 60;
             this.panelHeader.Padding = new Padding(10);
 
+            var lblTitre = new Label
+            {
+                Text = "📦 Gestion des Commandes",
+                Font = new Font("Segoe UI", 16F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(15, 15),
+                AutoSize = true
+            };
+            this.panelHeader.Controls.Add(lblTitre);
+            this.panelHeader.Controls.Add(this.btnRetour);
+
             // btnRetour
-            this.btnRetour.BackColor = Color.FromArgb(192, 57, 43);
+            this.btnRetour.BackColor = Color.FromArgb(100, 100, 100);
             this.btnRetour.FlatStyle = FlatStyle.Flat;
             this.btnRetour.FlatAppearance.BorderSize = 0;
             this.btnRetour.ForeColor = Color.White;
             this.btnRetour.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.btnRetour.Location = new Point(10, 10);
+            this.btnRetour.Location = new Point(680, 15);
             this.btnRetour.Size = new Size(100, 30);
-            this.btnRetour.Text = "← Retour";
+            this.btnRetour.Text = "🔙 Retour";
             this.btnRetour.Cursor = Cursors.Hand;
             this.btnRetour.Click += new EventHandler(this.btnRetour_Click);
 
             // Panel Recherche
-            this.panelRecherche.BackColor = Color.FromArgb(236, 240, 241);
+            this.panelRecherche.BackColor = Color.FromArgb(255, 250, 240);
             this.panelRecherche.Dock = DockStyle.Top;
             this.panelRecherche.Height = 80;
             this.panelRecherche.Padding = new Padding(15, 10, 15, 10);
 
             // lblFiltres
             this.lblFiltres.AutoSize = true;
-            this.lblFiltres.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblFiltres.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblFiltres.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            this.lblFiltres.ForeColor = Color.FromArgb(255, 140, 0);
             this.lblFiltres.Location = new Point(15, 10);
-            this.lblFiltres.Text = "Recherche";
+            this.lblFiltres.Text = "🔍 Recherche";
 
             // lblDate
             this.lblDate.AutoSize = true;
-            this.lblDate.Font = new Font("Segoe UI", 9F);
-            this.lblDate.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblDate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.lblDate.ForeColor = Color.FromArgb(100, 100, 100);
             this.lblDate.Location = new Point(15, 40);
-            this.lblDate.Text = "Date :";
+            this.lblDate.Text = "📅 Date :";
 
             // dtpDate
-            this.dtpDate.Location = new Point(70, 37);
+            this.dtpDate.Location = new Point(80, 37);
             this.dtpDate.Size = new Size(150, 25);
             this.dtpDate.Format = DateTimePickerFormat.Short;
             this.dtpDate.Font = new Font("Segoe UI", 9F);
+            this.dtpDate.CalendarForeColor = Color.FromArgb(255, 140, 0);
 
             // lblClient
             this.lblClient.AutoSize = true;
-            this.lblClient.Font = new Font("Segoe UI", 9F);
-            this.lblClient.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblClient.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.lblClient.ForeColor = Color.FromArgb(100, 100, 100);
             this.lblClient.Location = new Point(240, 40);
-            this.lblClient.Text = "Client :";
+            this.lblClient.Text = "👤 Client :";
 
             // txtClient
             this.txtClient.Location = new Point(295, 37);
@@ -116,7 +127,7 @@ namespace GestionDesMedicaments
             this.txtClient.BorderStyle = BorderStyle.FixedSingle;
 
             // btnRechercher
-            this.btnRechercher.BackColor = Color.FromArgb(46, 204, 113);
+            this.btnRechercher.BackColor = Color.FromArgb(255, 140, 0);
             this.btnRechercher.FlatStyle = FlatStyle.Flat;
             this.btnRechercher.FlatAppearance.BorderSize = 0;
             this.btnRechercher.ForeColor = Color.White;
@@ -128,14 +139,14 @@ namespace GestionDesMedicaments
             this.btnRechercher.Click += new EventHandler(this.btnRechercher_Click);
 
             // btnReinitialiser
-            this.btnReinitialiser.BackColor = Color.FromArgb(149, 165, 166);
+            this.btnReinitialiser.BackColor = Color.FromArgb(100, 100, 100);
             this.btnReinitialiser.FlatStyle = FlatStyle.Flat;
             this.btnReinitialiser.FlatAppearance.BorderSize = 0;
             this.btnReinitialiser.ForeColor = Color.White;
-            this.btnReinitialiser.Font = new Font("Segoe UI", 9F);
+            this.btnReinitialiser.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.btnReinitialiser.Location = new Point(620, 35);
             this.btnReinitialiser.Size = new Size(90, 30);
-            this.btnReinitialiser.Text = "Réinitialiser";
+            this.btnReinitialiser.Text = "🔄 Réinitialiser";
             this.btnReinitialiser.Cursor = Cursors.Hand;
             this.btnReinitialiser.Click += new EventHandler(this.btnReinitialiser_Click);
 
@@ -157,7 +168,7 @@ namespace GestionDesMedicaments
             this.DataGridViewCommandes.BackgroundColor = Color.White;
             this.DataGridViewCommandes.BorderStyle = BorderStyle.None;
             this.DataGridViewCommandes.EnableHeadersVisualStyles = false;
-            this.DataGridViewCommandes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            this.DataGridViewCommandes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 140, 0);
             this.DataGridViewCommandes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             this.DataGridViewCommandes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.DataGridViewCommandes.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(236, 240, 241);
@@ -174,7 +185,7 @@ namespace GestionDesMedicaments
             this.DataGridViewDetails.BackgroundColor = Color.White;
             this.DataGridViewDetails.BorderStyle = BorderStyle.None;
             this.DataGridViewDetails.EnableHeadersVisualStyles = false;
-            this.DataGridViewDetails.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            this.DataGridViewDetails.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 140, 0);
             this.DataGridViewDetails.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             this.DataGridViewDetails.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.DataGridViewDetails.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(236, 240, 241);
@@ -182,7 +193,7 @@ namespace GestionDesMedicaments
             this.DataGridViewDetails.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
 
             // btnNouveau
-            this.btnNouveau.BackColor = Color.FromArgb(46, 204, 113);
+            this.btnNouveau.BackColor = Color.FromArgb(255, 140, 0);
             this.btnNouveau.FlatStyle = FlatStyle.Flat;
             this.btnNouveau.FlatAppearance.BorderSize = 0;
             this.btnNouveau.ForeColor = Color.White;
@@ -194,7 +205,7 @@ namespace GestionDesMedicaments
             this.btnNouveau.Click += new EventHandler(this.btnNouveau_Click);
 
             // btnModifier
-            this.btnModifier.BackColor = Color.FromArgb(52, 152, 219);
+            this.btnModifier.BackColor = Color.FromArgb(60, 160, 60);
             this.btnModifier.FlatStyle = FlatStyle.Flat;
             this.btnModifier.FlatAppearance.BorderSize = 0;
             this.btnModifier.ForeColor = Color.White;
@@ -206,7 +217,7 @@ namespace GestionDesMedicaments
             this.btnModifier.Click += new EventHandler(this.btnModifier_Click);
 
             // btnSupprimer
-            this.btnSupprimer.BackColor = Color.FromArgb(231, 76, 60);
+            this.btnSupprimer.BackColor = Color.FromArgb(200, 50, 50);
             this.btnSupprimer.FlatStyle = FlatStyle.Flat;
             this.btnSupprimer.FlatAppearance.BorderSize = 0;
             this.btnSupprimer.ForeColor = Color.White;
@@ -218,7 +229,7 @@ namespace GestionDesMedicaments
             this.btnSupprimer.Click += new EventHandler(this.btnSupprimer_Click);
 
             // btnImprimer
-            this.btnImprimer.BackColor = Color.FromArgb(155, 89, 182);
+            this.btnImprimer.BackColor = Color.FromArgb(100, 150, 200);
             this.btnImprimer.FlatStyle = FlatStyle.Flat;
             this.btnImprimer.FlatAppearance.BorderSize = 0;
             this.btnImprimer.ForeColor = Color.White;
@@ -230,7 +241,7 @@ namespace GestionDesMedicaments
             this.btnImprimer.Click += new EventHandler(this.btnImprimer_Click);
 
             // btnStats
-            this.btnStats.BackColor = Color.FromArgb(241, 196, 15);
+            this.btnStats.BackColor = Color.FromArgb(255, 140, 0);
             this.btnStats.FlatStyle = FlatStyle.Flat;
             this.btnStats.FlatAppearance.BorderSize = 0;
             this.btnStats.ForeColor = Color.White;
@@ -242,8 +253,9 @@ namespace GestionDesMedicaments
             this.btnStats.Click += new EventHandler(this.btnStats_Click);
 
             // GestionCommandesForm
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(255, 250, 240);
             this.ClientSize = new Size(800, 660);
+            this.Text = "📦 Gestion des Commandes - TaPharmacieDeRêve";
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelRecherche);
             this.Controls.Add(this.DataGridViewCommandes);

@@ -223,6 +223,12 @@
     <Compile Include="GestionMedicamentsForm.Designer.cs">
       <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LandingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LandingPage.Designer.cs">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="LigneCommandeView.cs" />
     <Compile Include="LignePanier.cs" />
     <Compile Include="LoginForm.cs">
@@ -263,6 +269,9 @@
     <EmbeddedResource Include="GestionMedicamentsForm.resx">
       <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LandingPage.resx">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,6 +300,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\pharmacie.jpg" />
+    <Content Include="pharmacie.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.6.0.2\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />

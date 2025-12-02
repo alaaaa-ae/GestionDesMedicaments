@@ -29,8 +29,10 @@ namespace GestionDesMedicaments
         private Button btnSupprimer;
         private Button btnNouveau;
         private DataGridView dataGridViewMedicaments;
+        private DataGridView dataGridViewAlertePeremption;
         private TextBox txtRecherche;
         private Label lblRecherche;
+        private Label lblAlertePeremption;
 
         protected override void Dispose(bool disposing)
         {
@@ -63,19 +65,22 @@ namespace GestionDesMedicaments
             this.btnSupprimer = new Button();
             this.btnNouveau = new Button();
             this.dataGridViewMedicaments = new DataGridView();
+            this.dataGridViewAlertePeremption = new DataGridView();
             this.txtRecherche = new TextBox();
             this.lblRecherche = new Label();
+            this.lblAlertePeremption = new Label();
 
             this.groupBoxFormulaire.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicaments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlertePeremption)).BeginInit();
             this.SuspendLayout();
 
             // lblTitre
-            this.lblTitre.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            this.lblTitre.ForeColor = Color.Orange;
-            this.lblTitre.Location = new Point(300, 20);
+            this.lblTitre.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            this.lblTitre.ForeColor = Color.FromArgb(255, 140, 0);
+            this.lblTitre.Location = new Point(400, 20);
             this.lblTitre.Name = "lblTitre";
-            this.lblTitre.Size = new Size(350, 40);
+            this.lblTitre.Size = new Size(400, 40);
             this.lblTitre.Text = "💊 Gestion des Médicaments";
 
             // groupBoxFormulaire
@@ -182,37 +187,105 @@ namespace GestionDesMedicaments
             this.btnRetour.Text = "⬅️ Retour";
             this.btnRetour.Click += new EventHandler(this.btnRetour_Click);
 
-            // DataGridView
+            // DataGridView Médicaments
             this.dataGridViewMedicaments.Location = new Point(400, 110);
             this.dataGridViewMedicaments.Name = "dataGridViewMedicaments";
-            this.dataGridViewMedicaments.Size = new Size(750, 450);
+            this.dataGridViewMedicaments.Size = new Size(750, 300);
             this.dataGridViewMedicaments.RowHeadersVisible = false;
             this.dataGridViewMedicaments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMedicaments.CellDoubleClick += new DataGridViewCellEventHandler(this.dataGridViewMedicaments_CellDoubleClick);
+            this.dataGridViewMedicaments.EnableHeadersVisualStyles = false;
+            this.dataGridViewMedicaments.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 140, 0);
+            this.dataGridViewMedicaments.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            this.dataGridViewMedicaments.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.dataGridViewMedicaments.ColumnHeadersHeight = 36;
+
+            // DataGridView Alerte Péremption
+            this.dataGridViewAlertePeremption.Location = new Point(400, 440);
+            this.dataGridViewAlertePeremption.Name = "dataGridViewAlertePeremption";
+            this.dataGridViewAlertePeremption.Size = new Size(750, 150);
+            this.dataGridViewAlertePeremption.RowHeadersVisible = false;
+            this.dataGridViewAlertePeremption.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAlertePeremption.EnableHeadersVisualStyles = false;
+            this.dataGridViewAlertePeremption.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 100, 0);
+            this.dataGridViewAlertePeremption.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            this.dataGridViewAlertePeremption.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.dataGridViewAlertePeremption.ColumnHeadersHeight = 36;
+
+            // Label Alerte Péremption
+            this.lblAlertePeremption.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            this.lblAlertePeremption.ForeColor = Color.FromArgb(255, 140, 0);
+            this.lblAlertePeremption.Location = new Point(400, 410);
+            this.lblAlertePeremption.Name = "lblAlertePeremption";
+            this.lblAlertePeremption.Size = new Size(400, 25);
+            this.lblAlertePeremption.Text = "⏰ Médicaments en Alerte Péremption (30 jours)";
 
             // Recherche
             this.txtRecherche.Location = new Point(500, 70);
-            this.txtRecherche.Size = new Size(250, 20);
+            this.txtRecherche.Size = new Size(250, 25);
+            this.txtRecherche.BorderStyle = BorderStyle.FixedSingle;
             this.txtRecherche.TextChanged += new EventHandler(this.txtRecherche_TextChanged);
 
-            this.lblRecherche.Location = new Point(400, 70);
+            this.lblRecherche.Location = new Point(400, 72);
             this.lblRecherche.Size = new Size(100, 20);
             this.lblRecherche.Text = "🔍 Rechercher:";
+            this.lblRecherche.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.lblRecherche.ForeColor = Color.FromArgb(255, 140, 0);
+
+            // Appliquer thème orange aux boutons
+            Color orange = Color.FromArgb(255, 140, 0);
+            this.btnAjouter.BackColor = orange;
+            this.btnAjouter.ForeColor = Color.White;
+            this.btnAjouter.FlatStyle = FlatStyle.Flat;
+            this.btnAjouter.FlatAppearance.BorderSize = 0;
+            this.btnAjouter.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            this.btnModifier.BackColor = Color.FromArgb(60, 160, 60);
+            this.btnModifier.ForeColor = Color.White;
+            this.btnModifier.FlatStyle = FlatStyle.Flat;
+            this.btnModifier.FlatAppearance.BorderSize = 0;
+            this.btnModifier.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            this.btnSupprimer.BackColor = Color.FromArgb(200, 50, 50);
+            this.btnSupprimer.ForeColor = Color.White;
+            this.btnSupprimer.FlatStyle = FlatStyle.Flat;
+            this.btnSupprimer.FlatAppearance.BorderSize = 0;
+            this.btnSupprimer.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            this.btnNouveau.BackColor = Color.Gray;
+            this.btnNouveau.ForeColor = Color.White;
+            this.btnNouveau.FlatStyle = FlatStyle.Flat;
+            this.btnNouveau.FlatAppearance.BorderSize = 0;
+            this.btnNouveau.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            this.btnRetour.BackColor = Color.FromArgb(100, 100, 100);
+            this.btnRetour.ForeColor = Color.White;
+            this.btnRetour.FlatStyle = FlatStyle.Flat;
+            this.btnRetour.FlatAppearance.BorderSize = 0;
+            this.btnRetour.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            // GroupBox style
+            this.groupBoxFormulaire.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.groupBoxFormulaire.ForeColor = orange;
 
             // Form
-            this.ClientSize = new Size(1200, 631);
+            this.ClientSize = new Size(1200, 620);
+            this.BackColor = Color.FromArgb(255, 250, 240);
             this.Controls.Add(this.lblTitre);
             this.Controls.Add(this.groupBoxFormulaire);
             this.Controls.Add(this.dataGridViewMedicaments);
+            this.Controls.Add(this.lblAlertePeremption);
+            this.Controls.Add(this.dataGridViewAlertePeremption);
             this.Controls.Add(this.txtRecherche);
             this.Controls.Add(this.lblRecherche);
             this.Name = "GestionMedicamentsForm";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Gestion des Médicaments";
+            this.Text = "💊 Gestion des Médicaments - TaPharmacieDeRêve";
 
             this.groupBoxFormulaire.ResumeLayout(false);
             this.groupBoxFormulaire.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicaments)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlertePeremption)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }

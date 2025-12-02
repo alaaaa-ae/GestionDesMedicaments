@@ -13,6 +13,7 @@ namespace GestionDesMedicaments
             InitializeComponent();
             ChargerFournisseurs();
             ChargerMedicaments();
+            ChargerMedicamentsAlertePeremption();
         }
 
         // 🔹 Charger la ComboBox des fournisseurs
@@ -171,6 +172,54 @@ namespace GestionDesMedicaments
             DashboardPharmacien dashboard = new DashboardPharmacien();
             dashboard.Show();
             this.Close();
+        }
+
+        // 🔹 Charger les médicaments en alerte péremption
+        private void ChargerMedicamentsAlertePeremption()
+        {
+            try
+            {
+                using (System.Data.SqlClient.SqlConnection conn = Classes.Database.GetConnection())
+                {
+                    conn.Open();
+                    // Vérifier si la colonne date_peremption existe
+                    string checkColumn = @"SELECT COUNT(*) 
+                                          FROM INFORMATION_SCHEMA.COLUMNS 
+                                          WHERE TABLE_NAME = 'Medicament' 
+                                          AND COLUMN_NAME = 'date_peremption'";
+                    System.Data.SqlClient.SqlCommand cmdCheck = new System.Data.SqlClient.SqlCommand(checkColumn, conn);
+                    int columnExists = Convert.ToInt32(cmdCheck.ExecuteScalar());
+
+                    if (columnExists > 0)
+                    {
+                        string query = @"SELECT TOP 20 
+                                       id_medicament, nom, stock, date_peremption,
+                                       DATEDIFF(DAY, GETDATE(), date_peremption) as JoursRestants
+                                       FROM Medicament 
+                                       WHERE date_peremption IS NOT NULL
+                                       AND date_peremption <= DATEADD(DAY, 30, GETDATE())
+                                       ORDER BY date_peremption ASC";
+                        System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(query, conn);
+                        System.Data.DataTable dt = new System.Data.DataTable();
+                        da.Fill(dt);
+                        dataGridViewAlertePeremption.DataSource = dt;
+                    }
+                    else
+                    {
+                        // Si la colonne n'existe pas, créer un DataTable vide avec message
+                        System.Data.DataTable dt = new System.Data.DataTable();
+                        dt.Columns.Add("nom", typeof(string));
+                        dt.Columns.Add("JoursRestants", typeof(int));
+                        dt.Rows.Add("⚠️ Colonne date_peremption non disponible dans la base", 0);
+                        dataGridViewAlertePeremption.DataSource = dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur chargement alertes péremption: {ex.Message}", "Erreur",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

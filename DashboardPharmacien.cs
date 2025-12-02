@@ -43,6 +43,8 @@ namespace GestionDesMedicaments
             ChargerMedicamentsStockBas();
             ChargerCommandesRecentess();
             ChargerMedicamentsPopulaires();
+            VerifierAlertesStock();
+            ChargerMedicamentsAlertePeremption();
         }
 
         private void ChargerStatistiques()
@@ -53,21 +55,26 @@ namespace GestionDesMedicaments
                 {
                     conn.Open();
 
-                    // Chiffre d'affaires du jour
+                    // Chiffre d'affaires du jour - Correction avec jointure correcte
                     string queryCA = @"SELECT ISNULL(SUM(f.total), 0) 
-                                     FROM Facture f 
-                                     WHERE CAST(f.date_facture AS DATE) = CAST(GETDATE() AS DATE) 
+                                     FROM Commande c
+                                     INNER JOIN Facture f ON c.id_commande = f.id_commande
+                                     WHERE CAST(c.date_commande AS DATE) = CAST(GETDATE() AS DATE) 
+                                     AND c.statut != 'Annulée'
                                      AND f.statut != 'Annulée'";
                     SqlCommand cmdCA = new SqlCommand(queryCA, conn);
-                    decimal caJournalier = Convert.ToDecimal(cmdCA.ExecuteScalar());
+                    object resultCA = cmdCA.ExecuteScalar();
+                    decimal caJournalier = resultCA != null && resultCA != DBNull.Value ? Convert.ToDecimal(resultCA) : 0;
                     lblCAJournalier.Text = $"{caJournalier:C2}";
 
-                    // Commandes du jour
+                    // Commandes du jour - Correction
                     string queryCommandes = @"SELECT COUNT(*) 
                                             FROM Commande 
-                                            WHERE CAST(date_commande AS DATE) = CAST(GETDATE() AS DATE)";
+                                            WHERE CAST(date_commande AS DATE) = CAST(GETDATE() AS DATE)
+                                            AND statut != 'Annulée'";
                     SqlCommand cmdCommandes = new SqlCommand(queryCommandes, conn);
-                    int commandesJour = Convert.ToInt32(cmdCommandes.ExecuteScalar());
+                    object resultCmd = cmdCommandes.ExecuteScalar();
+                    int commandesJour = resultCmd != null && resultCmd != DBNull.Value ? Convert.ToInt32(resultCmd) : 0;
                     lblCommandesJour.Text = commandesJour.ToString();
 
                     // Médicaments stock bas
@@ -75,7 +82,8 @@ namespace GestionDesMedicaments
                                            FROM Medicament 
                                            WHERE stock <= seuil_alerte";
                     SqlCommand cmdStockBas = new SqlCommand(queryStockBas, conn);
-                    int stockBas = Convert.ToInt32(cmdStockBas.ExecuteScalar());
+                    object resultStock = cmdStockBas.ExecuteScalar();
+                    int stockBas = resultStock != null && resultStock != DBNull.Value ? Convert.ToInt32(resultStock) : 0;
                     lblAlertesStock.Text = stockBas.ToString();
 
                     // Clients du mois
@@ -84,7 +92,8 @@ namespace GestionDesMedicaments
                                           WHERE MONTH(date_commande) = MONTH(GETDATE()) 
                                           AND YEAR(date_commande) = YEAR(GETDATE())";
                     SqlCommand cmdClients = new SqlCommand(queryClients, conn);
-                    int clientsMois = Convert.ToInt32(cmdClients.ExecuteScalar());
+                    object resultClients = cmdClients.ExecuteScalar();
+                    int clientsMois = resultClients != null && resultClients != DBNull.Value ? Convert.ToInt32(resultClients) : 0;
                     lblClientsMois.Text = clientsMois.ToString();
                 }
             }
@@ -92,6 +101,80 @@ namespace GestionDesMedicaments
             {
                 MessageBox.Show($"Erreur chargement statistiques: {ex.Message}", "Erreur",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void VerifierAlertesStock()
+        {
+            try
+            {
+                using (SqlConnection conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    string query = @"SELECT COUNT(*) 
+                                   FROM Medicament 
+                                   WHERE stock = seuil_alerte";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    object result = cmd.ExecuteScalar();
+                    int count = result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+
+                    if (count > 0)
+                    {
+                        System.Media.SystemSounds.Exclamation.Play();
+                        MessageBox.Show($"⚠️ ALERTE : {count} médicament(s) ont atteint le seuil d'alerte !",
+                            "Alerte Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Erreur silencieuse pour ne pas perturber l'utilisateur
+            }
+        }
+
+        private void ChargerMedicamentsAlertePeremption()
+        {
+            try
+            {
+                using (SqlConnection conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    // Vérifier si la colonne date_peremption existe
+                    string checkColumn = @"SELECT COUNT(*) 
+                                          FROM INFORMATION_SCHEMA.COLUMNS 
+                                          WHERE TABLE_NAME = 'Medicament' 
+                                          AND COLUMN_NAME = 'date_peremption'";
+                    SqlCommand cmdCheck = new SqlCommand(checkColumn, conn);
+                    int columnExists = Convert.ToInt32(cmdCheck.ExecuteScalar());
+
+                    if (columnExists > 0)
+                    {
+                        string query = @"SELECT TOP 10 
+                                       id_medicament, nom, stock, date_peremption,
+                                       DATEDIFF(DAY, GETDATE(), date_peremption) as JoursRestants
+                                       FROM Medicament 
+                                       WHERE date_peremption IS NOT NULL
+                                       AND date_peremption <= DATEADD(DAY, 30, GETDATE())
+                                       ORDER BY date_peremption ASC";
+                        SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dataGridViewAlertePeremption.DataSource = dt;
+                    }
+                    else
+                    {
+                        // Si la colonne n'existe pas, créer un DataTable vide
+                        DataTable dt = new DataTable();
+                        dt.Columns.Add("nom", typeof(string));
+                        dt.Columns.Add("JoursRestants", typeof(int));
+                        dt.Rows.Add("Colonne date_peremption non disponible", 0);
+                        dataGridViewAlertePeremption.DataSource = dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Erreur silencieuse
             }
         }
 
@@ -179,20 +262,45 @@ namespace GestionDesMedicaments
 
         private void AppliquerThemeOrange()
         {
-            Color orange = Color.FromArgb(255, 128, 0);
-            Color darkOrange = Color.FromArgb(204, 102, 0);
+            Color orange = Color.FromArgb(255, 140, 0);
 
             // Appliquer le thème aux boutons
             var buttons = this.Controls.OfType<Button>();
             foreach (var btn in buttons)
             {
-                if (btn.Name.StartsWith("btn"))
+                if (btn.Name.StartsWith("btn") && btn.Name != "btnDeconnexion")
                 {
                     btn.BackColor = orange;
                     btn.ForeColor = Color.White;
                     btn.FlatStyle = FlatStyle.Flat;
                     btn.FlatAppearance.BorderSize = 0;
+                    btn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
                 }
+            }
+
+            // Appliquer le style aux DataGridViews
+            if (dataGridViewStockBas != null)
+            {
+                dataGridViewStockBas.EnableHeadersVisualStyles = false;
+                dataGridViewStockBas.ColumnHeadersDefaultCellStyle.BackColor = orange;
+                dataGridViewStockBas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridViewStockBas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            }
+
+            if (dataGridViewCommandes != null)
+            {
+                dataGridViewCommandes.EnableHeadersVisualStyles = false;
+                dataGridViewCommandes.ColumnHeadersDefaultCellStyle.BackColor = orange;
+                dataGridViewCommandes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridViewCommandes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            }
+
+            if (dataGridViewPopulaires != null)
+            {
+                dataGridViewPopulaires.EnableHeadersVisualStyles = false;
+                dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.BackColor = orange;
+                dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             }
         }
 

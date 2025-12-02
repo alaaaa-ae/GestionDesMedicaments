@@ -115,7 +115,7 @@ namespace GestionDesMedicaments.Clients
             this.nudQuantite.Font = new Font("Segoe UI", 9F);
 
             // btnAjouterMedicament
-            this.btnAjouterMedicament.BackColor = Color.FromArgb(46, 204, 113);
+            this.btnAjouterMedicament.BackColor = Color.FromArgb(255, 140, 0);
             this.btnAjouterMedicament.FlatStyle = FlatStyle.Flat;
             this.btnAjouterMedicament.FlatAppearance.BorderSize = 0;
             this.btnAjouterMedicament.ForeColor = Color.White;
@@ -135,10 +135,10 @@ namespace GestionDesMedicaments.Clients
             this.dgvMedicamentsCommande.BackgroundColor = Color.White;
             this.dgvMedicamentsCommande.BorderStyle = BorderStyle.None;
             this.dgvMedicamentsCommande.EnableHeadersVisualStyles = false;
-            this.dgvMedicamentsCommande.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            this.dgvMedicamentsCommande.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 140, 0);
             this.dgvMedicamentsCommande.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             this.dgvMedicamentsCommande.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.dgvMedicamentsCommande.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 246, 250);
+            this.dgvMedicamentsCommande.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(255, 250, 240);
             this.dgvMedicamentsCommande.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
             this.dgvMedicamentsCommande.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -165,10 +165,10 @@ namespace GestionDesMedicaments.Clients
             this.lblTotalValue.Location = new Point(400, 345);
             this.lblTotalValue.Text = "0,00 €";
             this.lblTotalValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblTotalValue.ForeColor = Color.FromArgb(46, 204, 113);
+            this.lblTotalValue.ForeColor = Color.FromArgb(255, 140, 0);
 
             // btnOk
-            this.btnOk.BackColor = Color.FromArgb(46, 204, 113);
+            this.btnOk.BackColor = Color.FromArgb(255, 140, 0);
             this.btnOk.FlatStyle = FlatStyle.Flat;
             this.btnOk.FlatAppearance.BorderSize = 0;
             this.btnOk.ForeColor = Color.White;
@@ -180,11 +180,11 @@ namespace GestionDesMedicaments.Clients
             this.btnOk.Click += new EventHandler(this.BtnOk_Click);
 
             // btnCancel
-            this.btnCancel.BackColor = Color.FromArgb(149, 165, 166);
+            this.btnCancel.BackColor = Color.FromArgb(100, 100, 100);
             this.btnCancel.FlatStyle = FlatStyle.Flat;
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.ForeColor = Color.White;
-            this.btnCancel.Font = new Font("Segoe UI", 9F);
+            this.btnCancel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.btnCancel.Location = new Point(490, 380);
             this.btnCancel.Size = new Size(80, 35);
             this.btnCancel.Text = "Annuler";
@@ -192,8 +192,9 @@ namespace GestionDesMedicaments.Clients
             this.btnCancel.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
 
             // CommandeEditForm
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(255, 250, 240);
             this.ClientSize = new Size(580, 425);
+            this.Text = "📦 Créer / Modifier Commande - TaPharmacieDeRêve";
             this.Controls.Add(this.lblClient);
             this.Controls.Add(this.cbClients);
             this.Controls.Add(this.lblDate);
