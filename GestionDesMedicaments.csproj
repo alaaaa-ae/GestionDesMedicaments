@@ -194,9 +194,6 @@
     <Compile Include="DashboardPharmacien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DashboardPharmacien.Designer.cs">
-      <DependentUpon>DashboardPharmacien.cs</DependentUpon>
-    </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -208,20 +205,11 @@
     <Compile Include="GestionClientsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GestionClientsForm.Designer.cs">
-      <DependentUpon>GestionClientsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="GestionCommandesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GestionCommandesForm.Designer.cs">
-      <DependentUpon>GestionCommandesForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="GestionMedicamentsForm.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GestionMedicamentsForm.Designer.cs">
-      <DependentUpon>GestionMedicamentsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LandingPage.cs">
       <SubType>Form</SubType>
@@ -248,6 +236,9 @@
     </Compile>
     <Compile Include="Security.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="SidebarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="CommandeEditForm.resx">
       <DependentUpon>CommandeEditForm.cs</DependentUpon>
     </EmbeddedResource>
