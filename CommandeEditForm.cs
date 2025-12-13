@@ -320,6 +320,48 @@ namespace GestionDesMedicaments.Clients
                     {
                         SqlCommand cmd;
                         int commandeId = IdCommande;
+                        string ancienStatut = "";
+                        string nouveauStatut = cbStatut.SelectedItem.ToString();
+
+                        // Si modification, récupérer l'ancien statut et restituer le stock si nécessaire
+                        if (Mode == EditMode.Edit)
+                        {
+                            // Récupérer l'ancien statut
+                            SqlCommand cmdOldStatus = new SqlCommand("SELECT statut FROM Commande WHERE id_commande=@id", conn, transaction);
+                            cmdOldStatus.Parameters.AddWithValue("@id", IdCommande);
+                            object oldStatusObj = cmdOldStatus.ExecuteScalar();
+                            ancienStatut = oldStatusObj?.ToString() ?? "";
+
+                            // Si la commande était confirmée, restituer le stock des anciennes lignes
+                            if (ancienStatut == "Confirmée")
+                            {
+                                SqlCommand cmdOldLines = new SqlCommand(
+                                    "SELECT id_medicament, quantite FROM LigneCommande WHERE id_commande=@id", 
+                                    conn, transaction);
+                                cmdOldLines.Parameters.AddWithValue("@id", IdCommande);
+                                using (SqlDataReader reader = cmdOldLines.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int idMedicament = Convert.ToInt32(reader["id_medicament"]);
+                                        int quantite = Convert.ToInt32(reader["quantite"]);
+                                        
+                                        // Restituer le stock
+                                        SqlCommand cmdRestore = new SqlCommand(
+                                            "UPDATE Medicament SET stock = stock + @qte WHERE id_medicament = @id", 
+                                            conn, transaction);
+                                        cmdRestore.Parameters.AddWithValue("@qte", quantite);
+                                        cmdRestore.Parameters.AddWithValue("@id", idMedicament);
+                                        cmdRestore.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+
+                            // Supprimer les anciennes lignes de commande
+                            SqlCommand cmdDelete = new SqlCommand("DELETE FROM LigneCommande WHERE id_commande=@id", conn, transaction);
+                            cmdDelete.Parameters.AddWithValue("@id", commandeId);
+                            cmdDelete.ExecuteNonQuery();
+                        }
 
                         string insertSql = $"INSERT INTO Commande ({commandeUserColumn}, date_commande, statut) OUTPUT INSERTED.id_commande VALUES (@client, @date, @statut)";
                         string updateSql = $"UPDATE Commande SET {commandeUserColumn}=@client, date_commande=@date, statut=@statut WHERE id_commande=@id";
@@ -329,7 +371,7 @@ namespace GestionDesMedicaments.Clients
                             cmd = new SqlCommand(insertSql, conn, transaction);
                             cmd.Parameters.AddWithValue("@client", ((ComboboxItem)cbClients.SelectedItem).Value);
                             cmd.Parameters.AddWithValue("@date", dtpDate.Value);
-                            cmd.Parameters.AddWithValue("@statut", cbStatut.SelectedItem.ToString());
+                            cmd.Parameters.AddWithValue("@statut", nouveauStatut);
                             commandeId = (int)cmd.ExecuteScalar();
                         }
                         else
@@ -338,14 +380,9 @@ namespace GestionDesMedicaments.Clients
                             cmd.Parameters.AddWithValue("@id", IdCommande);
                             cmd.Parameters.AddWithValue("@client", ((ComboboxItem)cbClients.SelectedItem).Value);
                             cmd.Parameters.AddWithValue("@date", dtpDate.Value);
-                            cmd.Parameters.AddWithValue("@statut", cbStatut.SelectedItem.ToString());
+                            cmd.Parameters.AddWithValue("@statut", nouveauStatut);
                             cmd.ExecuteNonQuery();
                             commandeId = IdCommande;
-
-                            // Supprimer les anciennes lignes de commande
-                            SqlCommand cmdDelete = new SqlCommand("DELETE FROM LigneCommande WHERE id_commande=@id", conn, transaction);
-                            cmdDelete.Parameters.AddWithValue("@id", commandeId);
-                            cmdDelete.ExecuteNonQuery();
                         }
 
                         // Insérer les nouvelles lignes de commande
@@ -359,6 +396,41 @@ namespace GestionDesMedicaments.Clients
                             cmdLigne.Parameters.AddWithValue("@quantite", ligne.Quantite);
                             cmdLigne.Parameters.AddWithValue("@prix_unitaire", ligne.PrixUnitaire);
                             cmdLigne.ExecuteNonQuery();
+                        }
+
+                        // Si le statut est "Confirmée", diminuer le stock
+                        if (nouveauStatut == "Confirmée")
+                        {
+                            foreach (var ligne in lignesCommande)
+                            {
+                                // Vérifier le stock disponible
+                                SqlCommand cmdCheckStock = new SqlCommand(
+                                    "SELECT stock FROM Medicament WHERE id_medicament = @id", 
+                                    conn, transaction);
+                                cmdCheckStock.Parameters.AddWithValue("@id", ligne.IdMedicament);
+                                object stockObj = cmdCheckStock.ExecuteScalar();
+                                
+                                if (stockObj != null && stockObj != DBNull.Value)
+                                {
+                                    int stockActuel = Convert.ToInt32(stockObj);
+                                    if (stockActuel < ligne.Quantite)
+                                    {
+                                        transaction.Rollback();
+                                        MessageBox.Show(
+                                            $"Stock insuffisant pour {ligne.NomMedicament}. Stock disponible: {stockActuel}, Quantité demandée: {ligne.Quantite}",
+                                            "Erreur Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+
+                                    // Diminuer le stock
+                                    SqlCommand cmdUpdateStock = new SqlCommand(
+                                        "UPDATE Medicament SET stock = stock - @qte WHERE id_medicament = @id", 
+                                        conn, transaction);
+                                    cmdUpdateStock.Parameters.AddWithValue("@qte", ligne.Quantite);
+                                    cmdUpdateStock.Parameters.AddWithValue("@id", ligne.IdMedicament);
+                                    cmdUpdateStock.ExecuteNonQuery();
+                                }
+                            }
                         }
 
                         // Mettre à jour ou créer la facture

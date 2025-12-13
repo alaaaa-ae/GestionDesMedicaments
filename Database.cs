@@ -8,7 +8,7 @@ namespace GestionDesMedicaments.Classes
     public class Database
     {
         private static string connectionString =
-            "Data Source=localhost;Initial Catalog=PharmacieDB;Integrated Security=True;";
+            "Data Source=DESKTOP-DC3IBI3;Initial Catalog=PharmacieDB;Integrated Security=True;";
 
         public static SqlConnection GetConnection()
         {
