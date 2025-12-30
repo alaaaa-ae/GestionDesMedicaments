@@ -12,6 +12,9 @@ namespace GestionDesMedicaments
     public class DashboardPharmacien : Form
     {
         private string commandeUserColumn = "id_utilisateur";
+        private readonly Color AccentColor = Color.FromArgb(0, 120, 215); // Modern Blue
+        private readonly Color BackgroundColor = Color.FromArgb(243, 244, 246); // Light Gray
+        private readonly Color CardColor = Color.White;
 
         public DashboardPharmacien()
         {
@@ -40,44 +43,40 @@ namespace GestionDesMedicaments
             try
             {
                 // Ajuster les DataGridViews en fonction de la taille
-                int panelWidth = panelContent.Width - 30;
-                int panelHeightSection1 = panelSection1.Height;
-                int panelHeightSection2 = panelSection2.Height;
-
-                // Section 1: Stock Bas et Commandes
+                int panelWidth = panelContent.Width - 40; // More padding
+                int halfWidth = (panelWidth - 20) / 2;
+                int topSectionHeight = panelContent.Height / 2 - 60;
+                
+                // Section 1: Stock Bas & Commandes (Top)
                 if (dataGridViewStockBas != null && dataGridViewCommandes != null)
                 {
-                    int gridWidth = panelWidth / 2 - 10;
-                    int gridHeight = panelHeightSection1 - 40;
+                    // Section 1 Labels
+                    lblStockBas.Location = new Point(20, 20);
+                    lblCommandesRecentes.Location = new Point(20 + halfWidth + 20, 20);
 
-                    // Positionner les labels
-                    lblStockBas.Location = new Point(0, 0);
-                    lblCommandesRecentes.Location = new Point(panelWidth / 2 + 10, 0);
+                    // Section 1 Grids
+                    dataGridViewStockBas.Location = new Point(20, 50);
+                    dataGridViewStockBas.Size = new Size(halfWidth, topSectionHeight);
 
-                    // Positionner et redimensionner les grids
-                    dataGridViewStockBas.Location = new Point(0, 35);
-                    dataGridViewStockBas.Size = new Size(gridWidth, gridHeight);
-
-                    dataGridViewCommandes.Location = new Point(panelWidth / 2 + 10, 35);
-                    dataGridViewCommandes.Size = new Size(gridWidth, gridHeight);
+                    dataGridViewCommandes.Location = new Point(20 + halfWidth + 20, 50);
+                    dataGridViewCommandes.Size = new Size(halfWidth, topSectionHeight);
                 }
 
-                // Section 2: Populaires et Péremption
+                // Section 2: Populaires & Péremption (Bottom)
                 if (dataGridViewPopulaires != null && dataGridViewAlertePeremption != null)
                 {
-                    int gridWidth = panelWidth / 2 - 10;
-                    int gridHeight = panelHeightSection2 - 40;
+                    int startY = 50 + topSectionHeight + 40;
 
-                    // Positionner les labels
-                    lblMedicamentsPopulaires.Location = new Point(0, 0);
-                    lblAlertePeremption.Location = new Point(panelWidth / 2 + 10, 0);
+                    // Section 2 Labels
+                    lblMedicamentsPopulaires.Location = new Point(20, startY);
+                    lblAlertePeremption.Location = new Point(20 + halfWidth + 20, startY);
 
-                    // Positionner et redimensionner les grids
-                    dataGridViewPopulaires.Location = new Point(0, 35);
-                    dataGridViewPopulaires.Size = new Size(gridWidth, gridHeight);
+                    // Section 2 Grids
+                    dataGridViewPopulaires.Location = new Point(20, startY + 30);
+                    dataGridViewPopulaires.Size = new Size(halfWidth, topSectionHeight);
 
-                    dataGridViewAlertePeremption.Location = new Point(panelWidth / 2 + 10, 35);
-                    dataGridViewAlertePeremption.Size = new Size(gridWidth, gridHeight);
+                    dataGridViewAlertePeremption.Location = new Point(20 + halfWidth + 20, startY + 30);
+                    dataGridViewAlertePeremption.Size = new Size(halfWidth, topSectionHeight);
                 }
 
                 // Ajuster automatiquement les colonnes
@@ -139,7 +138,7 @@ namespace GestionDesMedicaments
                 this.Cursor = Cursors.WaitCursor;
 
                 // Charger toutes les données
-                ChargerStatistiques();
+                // ChargerStatistiques(); // REMOVED
                 ChargerMedicamentsStockBas();
                 ChargerCommandesRecentes();
                 ChargerMedicamentsPopulaires();
@@ -159,66 +158,7 @@ namespace GestionDesMedicaments
             }
         }
 
-        private void ChargerStatistiques()
-        {
-            try
-            {
-                using (SqlConnection conn = Database.GetConnection())
-                {
-                    conn.Open();
-
-                    // CA Journalier
-                    string queryCA = @"SELECT ISNULL(SUM(f.total), 0) 
-                                     FROM Commande c
-                                     INNER JOIN Facture f ON c.id_commande = f.id_commande
-                                     WHERE CAST(c.date_commande AS DATE) = CAST(GETDATE() AS DATE) 
-                                     AND c.statut != 'Annulée'
-                                     AND f.statut != 'Annulée'";
-                    using (SqlCommand cmdCA = new SqlCommand(queryCA, conn))
-                    {
-                        decimal caJournalier = Convert.ToDecimal(cmdCA.ExecuteScalar());
-                        lblCAJournalier.Text = $"{caJournalier:C2}";
-                    }
-
-                    // Commandes Jour
-                    string queryCommandes = @"SELECT COUNT(*) 
-                                            FROM Commande 
-                                            WHERE CAST(date_commande AS DATE) = CAST(GETDATE() AS DATE)
-                                            AND statut != 'Annulée'";
-                    using (SqlCommand cmdCommandes = new SqlCommand(queryCommandes, conn))
-                    {
-                        int commandesJour = Convert.ToInt32(cmdCommandes.ExecuteScalar());
-                        lblCommandesJour.Text = commandesJour.ToString();
-                    }
-
-                    // Alertes Stock
-                    string queryStockBas = @"SELECT COUNT(*) 
-                                           FROM Medicament 
-                                           WHERE stock <= seuil_alerte";
-                    using (SqlCommand cmdStockBas = new SqlCommand(queryStockBas, conn))
-                    {
-                        int stockBas = Convert.ToInt32(cmdStockBas.ExecuteScalar());
-                        lblAlertesStock.Text = stockBas.ToString();
-                    }
-
-                    // Clients Mois
-                    string queryClients = $@"SELECT COUNT(DISTINCT {commandeUserColumn}) 
-                                          FROM Commande 
-                                          WHERE MONTH(date_commande) = MONTH(GETDATE()) 
-                                          AND YEAR(date_commande) = YEAR(GETDATE())";
-                    using (SqlCommand cmdClients = new SqlCommand(queryClients, conn))
-                    {
-                        int clientsMois = Convert.ToInt32(cmdClients.ExecuteScalar());
-                        lblClientsMois.Text = clientsMois.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors du chargement des statistiques:\n{ex.Message}",
-                    "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        // ChargerStatistiques REMOVED
 
         private void VerifierAlertesStock()
         {

@@ -343,7 +343,7 @@ namespace GestionDesMedicaments
         {
             // La largeur du contenu est la largeur du panelContent moins le padding (40 au total)
             int contentWidth = this.panelContent.ClientSize.Width - 40;
-            int topOffset = 170; // Position Y des listes
+            int topOffset = 200; // AUGMENTÉ de 170 à 200 pour plus d'espace sous les titres
             int gap = 20; // Espacement entre les panneaux/listes
             
             if (contentWidth > 0)
@@ -361,10 +361,10 @@ namespace GestionDesMedicaments
                 
                 // Ajustement des labels de titre des listes
                 var lblClients = this.panelContent.Controls.OfType<Label>().FirstOrDefault(l => l.Text.Contains("Clients"));
-                if (lblClients != null) lblClients.Location = new Point(20, topOffset - 30);
+                if (lblClients != null) lblClients.Location = new Point(20, topOffset - 40); // Plus d'espace au-dessus (était -30)
                 
                 var lblFactures = this.panelContent.Controls.OfType<Label>().FirstOrDefault(l => l.Text.Contains("Factures"));
-                if (lblFactures != null) lblFactures.Location = new Point(20 + listPanelWidth + gap, topOffset - 30);
+                if (lblFactures != null) lblFactures.Location = new Point(20 + listPanelWidth + gap, topOffset - 40);
 
                 // 2. Ajustement des panneaux de formulaire et paiement
                 int formY = topOffset + 300 + gap + 30; // 300 (hauteur liste) + gap + 30 (espace)

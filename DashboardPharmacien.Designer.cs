@@ -9,15 +9,6 @@ namespace GestionDesMedicaments
         private Button btnDeconnexion;
         private System.ComponentModel.IContainer components = null;
         private Label lblTitre;
-        private Panel panelStats;
-        private Label lblCAJournalier;
-        private Label lblCommandesJour;
-        private Label lblAlertesStock;
-        private Label lblClientsMois;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
         private DataGridView dataGridViewStockBas;
         private DataGridView dataGridViewCommandes;
         private DataGridView dataGridViewPopulaires;
@@ -50,15 +41,6 @@ namespace GestionDesMedicaments
         private void InitializeComponent()
         {
             this.lblTitre = new Label();
-            this.panelStats = new Panel();
-            this.label1 = new Label();
-            this.lblCAJournalier = new Label();
-            this.label2 = new Label();
-            this.lblCommandesJour = new Label();
-            this.label3 = new Label();
-            this.lblAlertesStock = new Label();
-            this.label4 = new Label();
-            this.lblClientsMois = new Label();
             this.dataGridViewStockBas = new DataGridView();
             this.dataGridViewCommandes = new DataGridView();
             this.dataGridViewPopulaires = new DataGridView();
@@ -86,9 +68,9 @@ namespace GestionDesMedicaments
             // 
             // panelSidebar
             // 
-            this.panelSidebar.BackColor = Color.FromArgb(50, 50, 60);
+            this.panelSidebar.BackColor = Color.FromArgb(31, 41, 55); // Modern Dark
             this.panelSidebar.Dock = DockStyle.Left;
-            this.panelSidebar.Width = 220;
+            this.panelSidebar.Width = 250; // Slightly wider
             this.panelSidebar.Controls.Add(this.btnSidebarMedicaments);
             this.panelSidebar.Controls.Add(this.btnSidebarCommandes);
             this.panelSidebar.Controls.Add(this.btnSidebarClients);
@@ -100,12 +82,12 @@ namespace GestionDesMedicaments
             // 
             this.btnSidebarMedicaments.Dock = DockStyle.Top;
             this.btnSidebarMedicaments.Height = 60;
-            this.btnSidebarMedicaments.Text = "💊 Médicaments";
-            this.btnSidebarMedicaments.BackColor = Color.FromArgb(70, 70, 80);
-            this.btnSidebarMedicaments.ForeColor = Color.White;
+            this.btnSidebarMedicaments.Text = "  💊  Médicaments";
+            this.btnSidebarMedicaments.BackColor = Color.FromArgb(31, 41, 55);
+            this.btnSidebarMedicaments.ForeColor = Color.FromArgb(229, 231, 235); // Light Gray
             this.btnSidebarMedicaments.FlatStyle = FlatStyle.Flat;
             this.btnSidebarMedicaments.FlatAppearance.BorderSize = 0;
-            this.btnSidebarMedicaments.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            this.btnSidebarMedicaments.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.btnSidebarMedicaments.TextAlign = ContentAlignment.MiddleLeft;
             this.btnSidebarMedicaments.Padding = new Padding(20, 0, 0, 0);
             this.btnSidebarMedicaments.Cursor = Cursors.Hand;
@@ -118,12 +100,12 @@ namespace GestionDesMedicaments
             // 
             this.btnSidebarCommandes.Dock = DockStyle.Top;
             this.btnSidebarCommandes.Height = 60;
-            this.btnSidebarCommandes.Text = "📦 Commandes";
-            this.btnSidebarCommandes.BackColor = Color.FromArgb(70, 70, 80);
-            this.btnSidebarCommandes.ForeColor = Color.White;
+            this.btnSidebarCommandes.Text = "  📦  Commandes";
+            this.btnSidebarCommandes.BackColor = Color.FromArgb(31, 41, 55);
+            this.btnSidebarCommandes.ForeColor = Color.FromArgb(229, 231, 235);
             this.btnSidebarCommandes.FlatStyle = FlatStyle.Flat;
             this.btnSidebarCommandes.FlatAppearance.BorderSize = 0;
-            this.btnSidebarCommandes.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            this.btnSidebarCommandes.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.btnSidebarCommandes.TextAlign = ContentAlignment.MiddleLeft;
             this.btnSidebarCommandes.Padding = new Padding(20, 0, 0, 0);
             this.btnSidebarCommandes.Cursor = Cursors.Hand;
@@ -136,12 +118,12 @@ namespace GestionDesMedicaments
             // 
             this.btnSidebarClients.Dock = DockStyle.Top;
             this.btnSidebarClients.Height = 60;
-            this.btnSidebarClients.Text = "👥 Clients";
-            this.btnSidebarClients.BackColor = Color.FromArgb(70, 70, 80);
-            this.btnSidebarClients.ForeColor = Color.White;
+            this.btnSidebarClients.Text = "  👥  Clients";
+            this.btnSidebarClients.BackColor = Color.FromArgb(31, 41, 55);
+            this.btnSidebarClients.ForeColor = Color.FromArgb(229, 231, 235);
             this.btnSidebarClients.FlatStyle = FlatStyle.Flat;
             this.btnSidebarClients.FlatAppearance.BorderSize = 0;
-            this.btnSidebarClients.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            this.btnSidebarClients.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             this.btnSidebarClients.TextAlign = ContentAlignment.MiddleLeft;
             this.btnSidebarClients.Padding = new Padding(20, 0, 0, 0);
             this.btnSidebarClients.Cursor = Cursors.Hand;
@@ -154,8 +136,8 @@ namespace GestionDesMedicaments
             // 
             this.btnRafraichir.Dock = DockStyle.Bottom;
             this.btnRafraichir.Height = 60;
-            this.btnRafraichir.Text = "🔄 Rafraîchir";
-            this.btnRafraichir.BackColor = Color.FromArgb(100, 150, 200);
+            this.btnRafraichir.Text = "  🔄  Rafraîchir";
+            this.btnRafraichir.BackColor = Color.FromArgb(55, 65, 81); // Slightly lighter
             this.btnRafraichir.ForeColor = Color.White;
             this.btnRafraichir.FlatStyle = FlatStyle.Flat;
             this.btnRafraichir.FlatAppearance.BorderSize = 0;
@@ -170,8 +152,8 @@ namespace GestionDesMedicaments
             // 
             this.btnDeconnexion.Dock = DockStyle.Bottom;
             this.btnDeconnexion.Height = 60;
-            this.btnDeconnexion.Text = "🔒 Déconnexion";
-            this.btnDeconnexion.BackColor = Color.FromArgb(200, 50, 50);
+            this.btnDeconnexion.Text = "  🔒  Déconnexion";
+            this.btnDeconnexion.BackColor = Color.FromArgb(220, 38, 38); // Modern Red
             this.btnDeconnexion.ForeColor = Color.White;
             this.btnDeconnexion.FlatStyle = FlatStyle.Flat;
             this.btnDeconnexion.FlatAppearance.BorderSize = 0;
@@ -185,8 +167,9 @@ namespace GestionDesMedicaments
             // panelContent
             // 
             this.panelContent.Dock = DockStyle.Fill;
-            this.panelContent.BackColor = Color.FromArgb(255, 250, 240);
-            this.panelContent.Padding = new Padding(15);
+            this.panelContent.Dock = DockStyle.Fill;
+            this.panelContent.BackColor = Color.FromArgb(243, 244, 246); // Light Gray Background
+            this.panelContent.Padding = new Padding(20);
             this.panelContent.Controls.Add(this.tableLayoutPrincipal);
 
             // 
@@ -195,13 +178,13 @@ namespace GestionDesMedicaments
             this.tableLayoutPrincipal.ColumnCount = 1;
             this.tableLayoutPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             this.tableLayoutPrincipal.Controls.Add(this.lblTitre, 0, 0);
-            this.tableLayoutPrincipal.Controls.Add(this.panelStats, 0, 1);
-            this.tableLayoutPrincipal.Controls.Add(this.panelSection1, 0, 2);
-            this.tableLayoutPrincipal.Controls.Add(this.panelSection2, 0, 3);
+            this.tableLayoutPrincipal.Controls.Add(this.lblTitre, 0, 0);
+            // panelStats removed
+            this.tableLayoutPrincipal.Controls.Add(this.panelSection1, 0, 1);
+            this.tableLayoutPrincipal.Controls.Add(this.panelSection2, 0, 2);
             this.tableLayoutPrincipal.Dock = DockStyle.Fill;
-            this.tableLayoutPrincipal.RowCount = 4;
+            this.tableLayoutPrincipal.RowCount = 3;
             this.tableLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            this.tableLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 120F));
             this.tableLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             this.tableLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             this.tableLayoutPrincipal.Padding = new Padding(0);
@@ -210,115 +193,14 @@ namespace GestionDesMedicaments
             // lblTitre
             // 
             this.lblTitre.Dock = DockStyle.Fill;
-            this.lblTitre.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            this.lblTitre.ForeColor = Color.FromArgb(255, 140, 0);
-            this.lblTitre.Text = "📊 Tableau de Bord Pharmacien";
+            this.lblTitre.Dock = DockStyle.Fill;
+            this.lblTitre.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            this.lblTitre.ForeColor = Color.FromArgb(17, 24, 39); // Dark Text
+            this.lblTitre.Text = "Tableau de Bord";
             this.lblTitre.TextAlign = ContentAlignment.MiddleLeft;
             this.lblTitre.AutoSize = false;
 
-            // 
-            // panelStats
-            // 
-            this.panelStats.Dock = DockStyle.Fill;
-            this.panelStats.BackColor = Color.White;
-            this.panelStats.BorderStyle = BorderStyle.FixedSingle;
-            this.panelStats.Controls.Add(this.label1);
-            this.panelStats.Controls.Add(this.lblCAJournalier);
-            this.panelStats.Controls.Add(this.label2);
-            this.panelStats.Controls.Add(this.lblCommandesJour);
-            this.panelStats.Controls.Add(this.label3);
-            this.panelStats.Controls.Add(this.lblAlertesStock);
-            this.panelStats.Controls.Add(this.label4);
-            this.panelStats.Controls.Add(this.lblClientsMois);
-            this.panelStats.Margin = new Padding(0, 10, 0, 10);
 
-            // 
-            // label1
-            // 
-            this.label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.label1.ForeColor = Color.FromArgb(255, 140, 0);
-            this.label1.Location = new Point(30, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new Size(150, 23);
-            this.label1.Text = "💰 CA Journalier";
-            this.label1.AutoSize = false;
-
-            // 
-            // lblCAJournalier
-            // 
-            this.lblCAJournalier.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            this.lblCAJournalier.ForeColor = Color.Green;
-            this.lblCAJournalier.Location = new Point(30, 45);
-            this.lblCAJournalier.Name = "lblCAJournalier";
-            this.lblCAJournalier.Size = new Size(150, 30);
-            this.lblCAJournalier.Text = "0,00 €";
-            this.lblCAJournalier.AutoSize = false;
-
-            // 
-            // label2
-            // 
-            this.label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.label2.ForeColor = Color.FromArgb(255, 140, 0);
-            this.label2.Location = new Point(200, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new Size(180, 23);
-            this.label2.Text = "📦 Commandes Aujourd'hui";
-            this.label2.AutoSize = false;
-
-            // 
-            // lblCommandesJour
-            // 
-            this.lblCommandesJour.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            this.lblCommandesJour.ForeColor = Color.FromArgb(0, 100, 200);
-            this.lblCommandesJour.Location = new Point(200, 45);
-            this.lblCommandesJour.Name = "lblCommandesJour";
-            this.lblCommandesJour.Size = new Size(100, 30);
-            this.lblCommandesJour.Text = "0";
-            this.lblCommandesJour.AutoSize = false;
-
-            // 
-            // label3
-            // 
-            this.label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.label3.ForeColor = Color.FromArgb(255, 140, 0);
-            this.label3.Location = new Point(400, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new Size(120, 23);
-            this.label3.Text = "⚠️ Alertes Stock";
-            this.label3.AutoSize = false;
-
-            // 
-            // lblAlertesStock
-            // 
-            this.lblAlertesStock.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            this.lblAlertesStock.ForeColor = Color.Red;
-            this.lblAlertesStock.Location = new Point(400, 45);
-            this.lblAlertesStock.Name = "lblAlertesStock";
-            this.lblAlertesStock.Size = new Size(100, 30);
-            this.lblAlertesStock.Text = "0";
-            this.lblAlertesStock.AutoSize = false;
-
-            // 
-            // label4
-            // 
-            this.label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.label4.ForeColor = Color.FromArgb(255, 140, 0);
-            this.label4.Location = new Point(580, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new Size(130, 23);
-            this.label4.Text = "👥 Clients Ce Mois";
-            this.label4.AutoSize = false;
-
-            // 
-            // lblClientsMois
-            // 
-            this.lblClientsMois.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            this.lblClientsMois.ForeColor = Color.FromArgb(150, 0, 200);
-            this.lblClientsMois.Location = new Point(580, 45);
-            this.lblClientsMois.Name = "lblClientsMois";
-            this.lblClientsMois.Size = new Size(100, 30);
-            this.lblClientsMois.Text = "0";
-            this.lblClientsMois.AutoSize = false;
 
             // 
             // panelSection1
@@ -450,7 +332,8 @@ namespace GestionDesMedicaments
             // DashboardPharmacien
             // 
             this.ClientSize = new Size(1200, 800);
-            this.BackColor = Color.FromArgb(255, 250, 240);
+            this.ClientSize = new Size(1280, 800);
+            this.BackColor = Color.FromArgb(243, 244, 246); // Light Gray Background
             this.Controls.Add(this.panelSidebar);
             this.Controls.Add(this.panelContent);
             this.Name = "DashboardPharmacien";
