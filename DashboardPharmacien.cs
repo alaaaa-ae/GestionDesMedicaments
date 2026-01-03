@@ -62,21 +62,17 @@ namespace GestionDesMedicaments
                     dataGridViewCommandes.Size = new Size(halfWidth, topSectionHeight);
                 }
 
-                // Section 2: Populaires & Péremption (Bottom)
-                if (dataGridViewPopulaires != null && dataGridViewAlertePeremption != null)
+                // Section 2: Péremption (Bottom)
+                if (dataGridViewAlertePeremption != null)
                 {
                     int startY = 50 + topSectionHeight + 40;
 
                     // Section 2 Labels
-                    lblMedicamentsPopulaires.Location = new Point(20, startY);
-                    lblAlertePeremption.Location = new Point(20 + halfWidth + 20, startY);
+                    lblAlertePeremption.Location = new Point(20, startY);
 
                     // Section 2 Grids
-                    dataGridViewPopulaires.Location = new Point(20, startY + 30);
-                    dataGridViewPopulaires.Size = new Size(halfWidth, topSectionHeight);
-
-                    dataGridViewAlertePeremption.Location = new Point(20 + halfWidth + 20, startY + 30);
-                    dataGridViewAlertePeremption.Size = new Size(halfWidth, topSectionHeight);
+                    dataGridViewAlertePeremption.Location = new Point(20, startY + 30);
+                    dataGridViewAlertePeremption.Size = new Size(panelWidth, topSectionHeight);
                 }
 
                 // Ajuster automatiquement les colonnes
@@ -93,7 +89,7 @@ namespace GestionDesMedicaments
         {
             AjusterColonnesDataGridView(dataGridViewStockBas);
             AjusterColonnesDataGridView(dataGridViewCommandes);
-            AjusterColonnesDataGridView(dataGridViewPopulaires);
+
             AjusterColonnesDataGridView(dataGridViewAlertePeremption);
         }
 
@@ -138,10 +134,8 @@ namespace GestionDesMedicaments
                 this.Cursor = Cursors.WaitCursor;
 
                 // Charger toutes les données
-                // ChargerStatistiques(); // REMOVED
                 ChargerMedicamentsStockBas();
                 ChargerCommandesRecentes();
-                ChargerMedicamentsPopulaires();
                 ChargerMedicamentsAlertePeremption();
 
                 // Vérifier les alertes

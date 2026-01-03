@@ -43,11 +43,11 @@ namespace GestionDesMedicaments
             this.lblTitre = new Label();
             this.dataGridViewStockBas = new DataGridView();
             this.dataGridViewCommandes = new DataGridView();
-            this.dataGridViewPopulaires = new DataGridView();
+            this.dataGridViewCommandes = new DataGridView();
             this.dataGridViewAlertePeremption = new DataGridView();
             this.lblStockBas = new Label();
             this.lblCommandesRecentes = new Label();
-            this.lblMedicamentsPopulaires = new Label();
+            this.lblCommandesRecentes = new Label();
             this.lblAlertePeremption = new Label();
             this.btnRafraichir = new Button();
             this.btnDeconnexion = new Button();
@@ -271,36 +271,10 @@ namespace GestionDesMedicaments
             this.panelSection2.Dock = DockStyle.Fill;
             this.panelSection2.BackColor = Color.Transparent;
             this.panelSection2.Margin = new Padding(0, 5, 0, 0);
-            this.panelSection2.Controls.Add(this.lblMedicamentsPopulaires);
-            this.panelSection2.Controls.Add(this.dataGridViewPopulaires);
             this.panelSection2.Controls.Add(this.lblAlertePeremption);
             this.panelSection2.Controls.Add(this.dataGridViewAlertePeremption);
 
-            // 
-            // lblMedicamentsPopulaires
-            // 
-            this.lblMedicamentsPopulaires.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            this.lblMedicamentsPopulaires.ForeColor = Color.FromArgb(255, 140, 0);
-            this.lblMedicamentsPopulaires.Location = new Point(0, 0);
-            this.lblMedicamentsPopulaires.Name = "lblMedicamentsPopulaires";
-            this.lblMedicamentsPopulaires.Size = new Size(300, 30);
-            this.lblMedicamentsPopulaires.Text = "🔥 Médicaments Populaires (30j)";
-            this.lblMedicamentsPopulaires.AutoSize = false;
 
-            // 
-            // dataGridViewPopulaires
-            // 
-            this.dataGridViewPopulaires.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.dataGridViewPopulaires.Location = new Point(0, 35);
-            this.dataGridViewPopulaires.Name = "dataGridViewPopulaires";
-            this.dataGridViewPopulaires.RowHeadersWidth = 62;
-            this.dataGridViewPopulaires.TabIndex = 7;
-            this.dataGridViewPopulaires.EnableHeadersVisualStyles = false;
-            this.dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 140, 0);
-            this.dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dataGridViewPopulaires.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.dataGridViewPopulaires.Width = this.panelContent.Width / 2 - 10;
-            this.dataGridViewPopulaires.Height = this.panelSection2.Height - 40;
 
             // 
             // lblAlertePeremption
