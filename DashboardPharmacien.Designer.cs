@@ -43,10 +43,8 @@ namespace GestionDesMedicaments
             this.lblTitre = new Label();
             this.dataGridViewStockBas = new DataGridView();
             this.dataGridViewCommandes = new DataGridView();
-            this.dataGridViewCommandes = new DataGridView();
             this.dataGridViewAlertePeremption = new DataGridView();
             this.lblStockBas = new Label();
-            this.lblCommandesRecentes = new Label();
             this.lblCommandesRecentes = new Label();
             this.lblAlertePeremption = new Label();
             this.btnRafraichir = new Button();
